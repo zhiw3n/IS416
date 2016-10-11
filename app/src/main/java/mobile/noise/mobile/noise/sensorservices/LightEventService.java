@@ -13,7 +13,7 @@ public class LightEventService extends SensorEventService {
     }
 
     @Override
-    public String getClassTag() {
+    public String toString() {
         return "Light Sensor Event Service";
     }
 }

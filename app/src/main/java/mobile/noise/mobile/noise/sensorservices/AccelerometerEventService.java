@@ -13,7 +13,7 @@ public class AccelerometerEventService extends SensorEventService {
     }
 
     @Override
-    public String getClassTag() {
+    public String toString() {
         return "Accelerometer Sensor Event Service";
     }
 }

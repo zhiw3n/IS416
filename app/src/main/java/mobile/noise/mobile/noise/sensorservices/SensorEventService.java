@@ -24,7 +24,6 @@ public abstract class SensorEventService extends Service implements SensorEventL
     private static final double DELAY = 1e9;
 
     abstract public int getSensorType();
-    abstract public String getClassTag();
 
     @Override
     public void onCreate() {
@@ -33,14 +32,14 @@ public abstract class SensorEventService extends Service implements SensorEventL
 
         lastTimestamp = 0;
 
-        Log.i(this.getClassTag(), "onCreate()");
+        Log.i(this.toString(), "onCreate()");
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         mSensorManager.registerListener(this, mLight, SensorManager.SENSOR_DELAY_NORMAL);
 
-        Log.i(this.getClassTag(), "onStartCommand()");
+        Log.i(this.toString(), "onStartCommand()");
 
         return Service.START_STICKY;
     }
@@ -54,7 +53,7 @@ public abstract class SensorEventService extends Service implements SensorEventL
     public void onDestroy() {
         mSensorManager.unregisterListener(this);
 
-        Log.i(this.getClassTag(), "onDestroy()");
+        Log.i(this.toString(), "onDestroy()");
     }
 
     @Override
@@ -63,7 +62,7 @@ public abstract class SensorEventService extends Service implements SensorEventL
 
         if (sensorEvent.timestamp - lastTimestamp > DELAY) {
             lastTimestamp = sensorEvent.timestamp;
-            Log.i(this.getClassTag(), "onSensorChanged() with value " + values);
+            Log.i(this.toString(), "onSensorChanged() with value " + values);
         }
     }
 

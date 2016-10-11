@@ -13,7 +13,7 @@ public class ProximityEventService extends SensorEventService {
     }
 
     @Override
-    public String getClassTag() {
+    public String toString() {
         return "Proximity Sensor Event Service";
     }
 }
