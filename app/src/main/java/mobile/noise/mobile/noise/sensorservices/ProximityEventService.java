@@ -11,9 +11,4 @@ public class ProximityEventService extends SensorEventService {
     public int getSensorType() {
         return Sensor.TYPE_PROXIMITY;
     }
-
-    @Override
-    public String toString() {
-        return "Proximity Sensor Event Service";
-    }
 }

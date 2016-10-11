@@ -18,7 +18,7 @@ import android.util.Log;
 @RequiresApi(api = Build.VERSION_CODES.CUPCAKE)
 public abstract class SensorEventService extends Service implements SensorEventListener {
     private SensorManager mSensorManager;
-    private Sensor mLight;
+    private Sensor sensor;
 
     private long lastTimestamp;
     private static final double DELAY = 1e9;
@@ -28,7 +28,7 @@ public abstract class SensorEventService extends Service implements SensorEventL
     @Override
     public void onCreate() {
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        mLight = mSensorManager.getDefaultSensor(this.getSensorType());
+        sensor = mSensorManager.getDefaultSensor(this.getSensorType());
 
         lastTimestamp = 0;
 
@@ -37,7 +37,7 @@ public abstract class SensorEventService extends Service implements SensorEventL
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        mSensorManager.registerListener(this, mLight, SensorManager.SENSOR_DELAY_NORMAL);
+        mSensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_NORMAL);
 
         Log.i(this.toString(), "onStartCommand()");
 
@@ -69,5 +69,10 @@ public abstract class SensorEventService extends Service implements SensorEventL
     @Override
     public void onAccuracyChanged(Sensor sensor, int i) {
         // Do nothing.
+    }
+
+    @Override
+    public String toString() {
+        return sensor.getName() + "Sensor Event Service";
     }
 }

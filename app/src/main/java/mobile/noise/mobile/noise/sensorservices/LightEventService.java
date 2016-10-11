@@ -11,9 +11,4 @@ public class LightEventService extends SensorEventService {
     public int getSensorType() {
         return Sensor.TYPE_LIGHT;
     }
-
-    @Override
-    public String toString() {
-        return "Light Sensor Event Service";
-    }
 }

@@ -11,9 +11,4 @@ public class AccelerometerEventService extends SensorEventService {
     public int getSensorType() {
         return Sensor.TYPE_ACCELEROMETER;
     }
-
-    @Override
-    public String toString() {
-        return "Accelerometer Sensor Event Service";
-    }
 }
