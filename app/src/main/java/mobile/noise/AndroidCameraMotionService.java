@@ -27,6 +27,8 @@ import static org.opencv.core.Core.countNonZero;
 
 public class AndroidCameraMotionService extends Service {
 
+    private static final int DELAY = 500;
+    private static final double SENSITIVITY = 0.01;
     private static final String TAG = "AC Motion Service";
     private Camera mCamera;
     private SurfaceTexture mTexture;
@@ -37,26 +39,27 @@ public class AndroidCameraMotionService extends Service {
     private ArrayList<Mat> mMats;
     private boolean mRunning;
 
-    private Camera.PictureCallback mPicture = new Camera.PictureCallback() {
+    private Camera.PreviewCallback mPicture = new Camera.PreviewCallback() {
 
         @Override
-        public void onPictureTaken(byte[] data, Camera camera) {
-            Log.i(TAG, "Picture taken with address: " + data.toString());
-
+        public void onPreviewFrame(byte[] data, Camera camera) {
             Mat m = new Mat(mWidth, mHeight, mType);
             m.put(0, 0, data);
             mMats.add(m);
 
+            Log.i(TAG, "mMat of size " + mMats.size() + " contains: " + mMats);
+
             if (mMats.size() >= 3) {
-                Log.i(TAG, "mMats has size: " + mMats.size());
                 Core.absdiff(mMats.get(0), mMats.get(1), mDiff1);
                 Core.absdiff(mMats.get(1), mMats.get(2), mDiff2);
                 Core.bitwise_and(mDiff1, mDiff2, mResult);
 
-                Imgproc.threshold(mResult, mResult, 40, 255, Imgproc.THRESH_TOZERO);
+                Imgproc.threshold(mResult, mResult, (int) (SENSITIVITY * 255), 255, Imgproc.THRESH_TOZERO);
 
                 if (countNonZero(mResult) > 0) {
-                    Log.i(TAG, "There was movement with " + countNonZero(mResult) + " elements.");
+                    Log.e(TAG, "There was movement with " + countNonZero(mResult) + " elements.");
+                } else {
+                    Log.i(TAG, "No movement with mDiff1: " + countNonZero(mDiff1) + " | mDiff2: " + countNonZero(mDiff2) + " | mResult: " + countNonZero(mResult));
                 }
 
                 mMats.get(0).release();
@@ -122,10 +125,10 @@ public class AndroidCameraMotionService extends Service {
         Camera.Parameters pam = mCamera.getParameters();
         pam.setColorEffect(Camera.Parameters.EFFECT_MONO);
 
-        List<Camera.Size> sizes = pam.getSupportedPictureSizes();
-        mWidth = sizes.get(0).width;
-        mHeight = sizes.get(0).height;
-        pam.setPictureSize(mWidth, mHeight);
+        List<Camera.Size> sizes = pam.getSupportedPreviewSizes();
+        mWidth = sizes.get(1).width;
+        mHeight = sizes.get(1).height;
+        pam.setPreviewSize(mWidth, mHeight);
 
         mType = CvType.CV_8UC1;
 
@@ -154,11 +157,12 @@ public class AndroidCameraMotionService extends Service {
         handler.postDelayed(new Runnable() {
             public void run() {
                 Log.i(TAG, "First run at: " + SystemClock.elapsedRealtime());
-                mCamera.startPreview();
-                mCamera.takePicture(null, null, mPicture);
 
                 if (mRunning) {
-                    handler.postDelayed(this, 1500);
+                    mCamera.startPreview();
+                    mCamera.setOneShotPreviewCallback(mPicture);
+
+                    handler.postDelayed(this, DELAY);
                 }
             }
         }, 3000);
@@ -169,8 +173,8 @@ public class AndroidCameraMotionService extends Service {
 
      @Override
      public void onDestroy() {
-         mCamera.release();
          mRunning = false;
+         mCamera.release();
      }
 
     @Override
