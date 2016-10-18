@@ -61,9 +61,11 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".mobile.noise.sensorservices.AccelerometerEventService"/>
-        <service android:name=".mobile.noise.sensorservices.LightEventService"/>
-        <service android:name=".mobile.noise.sensorservices.ProximityEventService"/>
+        <service android:name=".mobile.noise.sensorservices.AccelerometerEventService" />
+        <service android:name=".mobile.noise.sensorservices.LightEventService" />
+        <service android:name=".mobile.noise.sensorservices.ProximityEventService" />
+
+        <activity android:name=".MainActivity"></activity>
     </application>
 
 </manifest>
