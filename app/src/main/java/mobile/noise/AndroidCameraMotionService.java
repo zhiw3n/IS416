@@ -126,8 +126,8 @@ public class AndroidCameraMotionService extends Service {
         pam.setColorEffect(Camera.Parameters.EFFECT_MONO);
 
         List<Camera.Size> sizes = pam.getSupportedPreviewSizes();
-        mWidth = sizes.get(1).width;
-        mHeight = sizes.get(1).height;
+        mWidth = sizes.get(sizes.size()-1).width;
+        mHeight = sizes.get(sizes.size()-1).height;
         pam.setPreviewSize(mWidth, mHeight);
 
         mType = CvType.CV_8UC1;
