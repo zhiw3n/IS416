@@ -46,6 +46,7 @@ public class MainActivity extends Activity {
     }
 
     private void addIntentsToQueue() {
+        /*
         if (findViewById(R.id.lightToggle).isChecked()) {
             serviceQueue.add(new Intent(MainActivity.this, LightEventService.class));
         }
@@ -65,5 +66,6 @@ public class MainActivity extends Activity {
         if (findViewById(R.id.noiseToggle).isChecked()) {
             serviceQueue.add(new Intent(MainActivity.this, NoiseEventService.class));
         }
+        */
     }
 }

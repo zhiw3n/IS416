@@ -54,18 +54,20 @@
             android:exported="true" />
 
         <activity android:name=".AndroidCameraMotionActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <service android:name=".mobile.noise.sensorservices.AccelerometerEventService" />
         <service android:name=".mobile.noise.sensorservices.LightEventService" />
         <service android:name=".mobile.noise.sensorservices.ProximityEventService" />
 
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity" />
+        <activity android:name=".Main3Activity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
