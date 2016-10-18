@@ -28,7 +28,8 @@ import static org.opencv.core.Core.countNonZero;
 public class AndroidCameraMotionService extends Service {
 
     private static final int DELAY = 500;
-    private static final double SENSITIVITY = 0.01; // In the interval of 0 and 1.
+    private static final double SENSITIVITY = 0.6; // In the interval of 0 and 1.
+    private static final int CAMERA_INDEX = 1;
     private static final String TAG = "AC Motion Service";
 
     private Camera mCamera;
@@ -55,9 +56,7 @@ public class AndroidCameraMotionService extends Service {
                 Core.absdiff(mMats.get(1), mMats.get(2), mDiff2);
                 Core.bitwise_and(mDiff1, mDiff2, mResult);
 
-                Imgproc.threshold(mResult, mResult, (int) (SENSITIVITY * 255), 255, Imgproc.THRESH_TOZERO);
-
-                if (countNonZero(mResult) > 0) {
+                if (countNonZero(mResult) > (1-SENSITIVITY)*mWidth*mHeight) {
                     Log.e(TAG, "There was movement with " + countNonZero(mResult) + " elements.");
                 } else {
                     Log.i(TAG, "No movement with mDiff1: " + countNonZero(mDiff1) + " | mDiff2: " + countNonZero(mDiff2) + " | mResult: " + countNonZero(mResult));
@@ -104,7 +103,7 @@ public class AndroidCameraMotionService extends Service {
 
         mCamera = null;
         try {
-            mCamera = Camera.open();
+            mCamera = Camera.open(CAMERA_INDEX);
             Log.d(TAG, "Camera has address: " + mCamera.toString());
         } catch (Exception e){
             Log.e(TAG, "Could not load the camera!");
