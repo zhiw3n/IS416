@@ -49,25 +49,25 @@
             android:value="@string/google_maps_key" />
 
         <service
-            android:name=".AndroidCameraMotionService"
+            android:name=".mobile.noise.sensorservices.AndroidCameraMotionService"
             android:enabled="true"
             android:exported="true" />
-
-        <activity android:name=".AndroidCameraMotionActivity">
-        </activity>
 
         <service android:name=".mobile.noise.sensorservices.AccelerometerEventService" />
         <service android:name=".mobile.noise.sensorservices.LightEventService" />
         <service android:name=".mobile.noise.sensorservices.ProximityEventService" />
 
-        <activity android:name=".MainActivity" />
-        <activity android:name=".Main3Activity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".FloorActivity"/>
+        <activity android:name=".InfoActivity"/>
+        <activity android:name=".SettingsActivity"/>
+
     </application>
 
 </manifest>

@@ -1,71 +1,96 @@
 package mobile.noise;
 
-import android.app.Activity;
-import android.app.Service;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 
 import java.util.ArrayList;
 
 import mobile.noise.mobile.noise.sensorservices.AccelerometerEventService;
+import mobile.noise.mobile.noise.sensorservices.AndroidCameraMotionService;
 import mobile.noise.mobile.noise.sensorservices.LightEventService;
 import mobile.noise.mobile.noise.sensorservices.ProximityEventService;
+import mobile.noise.mobile.noise.sensorservices.SensorType;
 
-public class MainActivity extends Activity {
+public class MainActivity extends AppCompatActivity {
 
     private static boolean running = false;
-    private static ArrayList<Intent> serviceQueue = new ArrayList<Intent>();
+    public static ArrayList<Intent> serviceQueue = new ArrayList<Intent>();
+    public static ArrayList<SensorType> sensorOn = new ArrayList<SensorType>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main2);
+        setContentView(R.layout.activity_main);
 
-        // TODO Get label of start button.
         findViewById(R.id.startBtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (running) {
+                if (!running) {
                     addIntentsToQueue();
                     for (Intent i : serviceQueue) {
                         startService(i);
                     }
-                    // TODO Change label of button to "Stop".
+
+                    ((Button) v).setText("Stop Service");
+                    running = true;
                 } else {
                     for (Intent i : serviceQueue) {
                         stopService(i);
                     }
                     serviceQueue = new ArrayList<Intent>();
-                    // TODO Change label of button to "Start".
+
+                    ((Button) v).setText("Start Service");
+                    running = false;
                 }
+            }
+        });
+
+        findViewById(R.id.searchBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, FloorActivity.class));
+            }
+        });
+
+        findViewById(R.id.settingsBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, SettingsActivity.class));
+            }
+        });
+
+        findViewById(R.id.infoBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, InfoActivity.class));
             }
         });
     }
 
     private void addIntentsToQueue() {
-        /*
-        if (findViewById(R.id.lightToggle).isChecked()) {
-            serviceQueue.add(new Intent(MainActivity.this, LightEventService.class));
-        }
-
-        if (findViewById(R.id.accelToggle).isChecked()) {
+        if (sensorOn.contains(SensorType.ACCELEROMETER)) {
             serviceQueue.add(new Intent(MainActivity.this, AccelerometerEventService.class));
         }
 
-        if (findViewById(R.id.proxToggle).isChecked()) {
-            serviceQueue.add(new Intent(MainActivity.this, ProximityEventService.class));
-        }
-
-        if (findViewById(R.id.motionToggle).isChecked()) {
+        if (sensorOn.contains(SensorType.CAMERA)) {
             serviceQueue.add(new Intent(MainActivity.this, AndroidCameraMotionService.class));
         }
 
-        if (findViewById(R.id.noiseToggle).isChecked()) {
-            serviceQueue.add(new Intent(MainActivity.this, NoiseEventService.class));
+        if (sensorOn.contains(SensorType.LIGHT)) {
+            serviceQueue.add(new Intent(MainActivity.this, LightEventService.class));
+        }
+
+        /*
+        if (sensorOn.contains(SensorType.MICROPHONE)) {
+            sensorOn.add(new Intent(MainActivity.this, NoiseEventService.class));
         }
         */
+
+        if (sensorOn.contains(SensorType.PROXIMITY)) {
+            serviceQueue.add(new Intent(MainActivity.this, ProximityEventService.class));
+        }
     }
 }

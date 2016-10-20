@@ -1,4 +1,4 @@
-package mobile.noise;
+package mobile.noise.mobile.noise.sensorservices;
 
 import android.app.Service;
 import android.content.Intent;
