@@ -16,9 +16,15 @@ import mobile.noise.mobile.noise.sensorservices.SensorType;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static boolean running = false;
-    public static ArrayList<Intent> serviceQueue = new ArrayList<Intent>();
-    public static ArrayList<SensorType> sensorOn = new ArrayList<SensorType>();
+    private static ArrayList<Intent> serviceQueue = new ArrayList<Intent>();
+    public static ArrayList<SensorType> sensorOn = new ArrayList<SensorType>() {{
+        add(SensorType.ACCELEROMETER);
+        add(SensorType.CAMERA);
+        add(SensorType.LIGHT);
+        add(SensorType.MICROPHONE);
+        add(SensorType.PROXIMITY);
+    }};
+    public static boolean running = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

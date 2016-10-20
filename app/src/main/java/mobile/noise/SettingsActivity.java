@@ -121,5 +121,13 @@ public class SettingsActivity extends Activity {
         if (!MainActivity.sensorOn.contains(SensorType.PROXIMITY)) {
             ((CompoundButton) findViewById(R.id.proximitySwitch)).setChecked(false);
         }
+
+        if (MainActivity.running) {
+            ((CompoundButton) findViewById(R.id.accelerometerSwitch)).setEnabled(false);
+            ((CompoundButton) findViewById(R.id.cameraSwitch)).setEnabled(false);
+            ((CompoundButton) findViewById(R.id.lightSwitch)).setEnabled(false);
+            ((CompoundButton) findViewById(R.id.microphoneSwitch)).setEnabled(false);
+            ((CompoundButton) findViewById(R.id.proximitySwitch)).setEnabled(false);
+        }
     }
 }
