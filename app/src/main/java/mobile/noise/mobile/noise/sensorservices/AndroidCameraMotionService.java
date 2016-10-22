@@ -28,7 +28,7 @@ import static org.opencv.core.Core.countNonZero;
 public class AndroidCameraMotionService extends Service {
 
     private static final int DELAY = 500;
-    private static final double SENSITIVITY = 0.6; // In the interval of 0 and 1.
+    private static final double SENSITIVITY = 0.5; // In the interval of 0 and 1.
     private static final int CAMERA_INDEX = 1;
     private static final String TAG = "AC Motion Service";
 
