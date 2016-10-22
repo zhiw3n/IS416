@@ -5,11 +5,10 @@ import android.media.MediaRecorder;
 import android.os.IBinder;
 import android.util.Log;
 import android.widget.Spinner;
-
-import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.io.IOException;
 
 public class NoiseEventService extends Service {
     private static double mEMA = 0.0;
@@ -63,7 +62,7 @@ public class NoiseEventService extends Service {
                 while (isRunning) {
                     try {
                         //get sound once every 5 seconds
-                        Thread.sleep(5000);
+                        Thread.sleep(1000);
                     } catch (Exception e) {
                         Log.i(TAG, "Problem!!!!");
                     }
@@ -71,28 +70,35 @@ public class NoiseEventService extends Service {
 
                         Log.i(TAG, "Sensor output!");
 
+
+    // Log.i("Volume Time: ", df.format(dateobj).toString());
                         int amplitutde = mRecorder.getMaxAmplitude();
                         double amplitudeEMA = getAmplitudeEMA();
                         double finalValue = Math.abs(20 * Math.log10(amplitutde));
                         String result = "" + amplitutde;
                        // String location = "SISGSR3-1";
                         //post to web service.
-                        DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
+                        DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
                         Date dateobj = new Date();
                         String time = "" + System.currentTimeMillis() / 1000;
                         String location = CustomOnItemSelectedListener.globalSpinnerValue;
-                        String finalResult = "" + Double.toString(finalValue);
+                        String finalResult = "" + Double.toString(finalValue-10);
                         if (finalResult.contains("In")) {
                             finalResult = "70";
                         }
+
+
+
                         finalResult = finalResult.substring(0, 2);
                         time = time.toString();
-                        recordNoise(df.format(dateobj).toString(), finalResult, location);
+                    //    recordNoise(df.format(dateobj).toString(), finalResult, location);
                         Log.i("Volume Time: ", df.format(dateobj).toString());
                         Log.i("Volume Result: ", Double.toString(finalValue));
                         Log.i("ampltitudeEMA: ", Integer.toString(amplitutde));
                         Log.i("Volume Location: ", location);
                         finalValue = 0;
+
+
                     }
                 }
             }
@@ -100,10 +106,15 @@ public class NoiseEventService extends Service {
         t.start();
         return Service.START_STICKY;
     }
+    /*
     public double soundDb(double ampl){
         return  20 * Math.log10(getAmplitudeEMA() / ampl);
     }
+    */
 
+    public double soundDb(double ampl){
+        return  20 * Math.log10(getAmplitudeEMA() / ampl);
+    }
     public void recordNoise(String time, String result, String location )
     {
         String method = "recordNoise";

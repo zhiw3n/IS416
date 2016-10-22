@@ -21,11 +21,13 @@ public class MainActivity extends AppCompatActivity {
     private Spinner spinner1;
     private static ArrayList<Intent> serviceQueue = new ArrayList<Intent>();
     public static ArrayList<SensorType> sensorOn = new ArrayList<SensorType>() {{
+        /*
         add(SensorType.ACCELEROMETER);
         add(SensorType.CAMERA);
         add(SensorType.LIGHT);
         add(SensorType.MICROPHONE);
         add(SensorType.PROXIMITY);
+        */
     }};
     public static boolean running = false;
 

@@ -69,7 +69,7 @@ public abstract class SensorEventService extends Service implements SensorEventL
 
             Log.i(this.toString(), "onSensorChanged() with value " + values[0]);
 
-            DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
+            DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
             Date dateobj = new Date();
             String time = "" + System.currentTimeMillis() / 1000;
             String location = CustomOnItemSelectedListener.globalSpinnerValue;
