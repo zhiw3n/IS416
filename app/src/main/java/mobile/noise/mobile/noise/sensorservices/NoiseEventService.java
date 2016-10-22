@@ -91,7 +91,7 @@ public class NoiseEventService extends Service {
 
                         finalResult = finalResult.substring(0, 2);
                         time = time.toString();
-                    //    recordNoise(df.format(dateobj).toString(), finalResult, location);
+                        recordNoise(df.format(dateobj).toString(), finalResult, location);
                         Log.i("Volume Time: ", df.format(dateobj).toString());
                         Log.i("Volume Result: ", Double.toString(finalValue));
                         Log.i("ampltitudeEMA: ", Integer.toString(amplitutde));

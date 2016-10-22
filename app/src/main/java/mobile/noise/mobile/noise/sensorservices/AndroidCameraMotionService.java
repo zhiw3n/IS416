@@ -17,10 +17,12 @@ import org.opencv.android.OpenCVLoader;
 import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
-import org.opencv.imgproc.Imgproc;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static org.opencv.core.Core.countNonZero;
@@ -58,8 +60,15 @@ public class AndroidCameraMotionService extends Service {
 
                 if (countNonZero(mResult) > (1-SENSITIVITY)*mWidth*mHeight) {
                     Log.e(TAG, "There was movement with " + countNonZero(mResult) + " elements.");
+                    DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+                    Date dateobj = new Date();
+                  //  String time = "" + System.currentTimeMillis() / 1000;
+                    String location = CustomOnItemSelectedListener.globalSpinnerValue;
+                    recordMovement(df.format(dateobj).toString(),"1",location);
                 } else {
-                    Log.i(TAG, "No movement with mDiff1: " + countNonZero(mDiff1) + " | mDiff2: " + countNonZero(mDiff2) + " | mResult: " + countNonZero(mResult));
+
+                 //   Log.i(TAG, "No movement with mDiff1: " + countNonZero(mDiff1) + " | mDiff2: " + countNonZero(mDiff2) + " | mResult: " + countNonZero(mResult));
+
                 }
 
                 mMats.get(0).release();
@@ -67,6 +76,19 @@ public class AndroidCameraMotionService extends Service {
             }
         }
     };
+
+    public void recordMovement(String time, String result, String location )
+    {
+       // mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        // sensor = mSensorManager.getDefaultSensor(this.getSensorType());
+//        String sensorName = sensor.toString();
+
+        String method = "recordCamera";
+
+        BackgroundTask backgroundTask = new BackgroundTask(this);
+        backgroundTask.execute(method,time,result,location);
+    }
+
 
     private BaseLoaderCallback mLoaderCallback = new BaseLoaderCallback(this) {
         @Override

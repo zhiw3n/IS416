@@ -62,13 +62,11 @@ public abstract class SensorEventService extends Service implements SensorEventL
 
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
-
         float[] values = sensorEvent.values;
         if (sensorEvent.timestamp - lastTimestamp > DELAY) {
             lastTimestamp = sensorEvent.timestamp;
 
             Log.i(this.toString(), "onSensorChanged() with value " + values[0]);
-
             DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
             Date dateobj = new Date();
             String time = "" + System.currentTimeMillis() / 1000;
@@ -94,6 +92,11 @@ public abstract class SensorEventService extends Service implements SensorEventL
         if(sensorName.contains("Accel")){
             method = "recordAccelerometer";
         }
+
+        if(sensorName.contains("Camera")){
+            method = "recordCamera";
+        }
+
         BackgroundTask backgroundTask = new BackgroundTask(this);
         backgroundTask.execute(method,time,result,location);
     }

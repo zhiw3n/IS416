@@ -21,13 +21,13 @@ public class MainActivity extends AppCompatActivity {
     private Spinner spinner1;
     private static ArrayList<Intent> serviceQueue = new ArrayList<Intent>();
     public static ArrayList<SensorType> sensorOn = new ArrayList<SensorType>() {{
-        /*
-        add(SensorType.ACCELEROMETER);
+
+     add(SensorType.ACCELEROMETER);
         add(SensorType.CAMERA);
         add(SensorType.LIGHT);
         add(SensorType.MICROPHONE);
         add(SensorType.PROXIMITY);
-        */
+
     }};
     public static boolean running = false;
 
@@ -96,13 +96,12 @@ public class MainActivity extends AppCompatActivity {
             serviceQueue.add(new Intent(MainActivity.this, LightEventService.class));
         }
         //adds Noise Services Automatically
-        serviceQueue.add(new Intent(MainActivity.this, NoiseEventService.class));
+          serviceQueue.add(new Intent(MainActivity.this, NoiseEventService.class));
         /*
         if (sensorOn.contains(SensorType.MICROPHONE)) {
             sensorOn.add(new Intent(MainActivity.this, NoiseEventService.class));
         }
         */
-
         if (sensorOn.contains(SensorType.PROXIMITY)) {
             serviceQueue.add(new Intent(MainActivity.this, ProximityEventService.class));
         }

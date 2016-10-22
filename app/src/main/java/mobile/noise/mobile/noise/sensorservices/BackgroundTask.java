@@ -35,6 +35,9 @@ public class BackgroundTask extends AsyncTask<String,Void,String> {
         String addProximity_url = "https://processing-angeliad.rhcloud.com/addProximity.php";
         String getLatestNoise_url = "https://processing-angeliad.rhcloud.com/getLatestNoise.php";
 
+        //to be updated
+        String recordCamera_url = "https://processing-angeliad.rhcloud.com/addCamera.php";
+
         String method = params[0];
        if(method.equals("recordNoise"))
         {
@@ -138,7 +141,6 @@ public class BackgroundTask extends AsyncTask<String,Void,String> {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
         }
        else if(method.equals("recordAccelerometer"))
        {
@@ -148,6 +150,40 @@ public class BackgroundTask extends AsyncTask<String,Void,String> {
 
            try {
                URL url = new URL(addAccelerometer_url);
+               HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
+               httpURLConnection.setRequestMethod("POST");
+               httpURLConnection.setDoOutput(true);
+               httpURLConnection.setDoInput(true);
+               OutputStream outputStream = httpURLConnection.getOutputStream();
+               BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream,"UTF-8"));
+
+               String data = URLEncoder.encode("time","UTF-8")+"="+URLEncoder.encode(time,"UTF-8")+"&"+
+                       URLEncoder.encode("result","UTF-8")+"="+URLEncoder.encode(result,"UTF-8")+"&"+
+                       URLEncoder.encode("location","UTF-8")+"="+URLEncoder.encode(location,"UTF-8");
+
+               bufferedWriter.write(data);
+               bufferedWriter.flush();
+               bufferedWriter.close();
+               outputStream.close();
+
+               InputStream IS = httpURLConnection.getInputStream();
+               IS.close();
+
+               httpURLConnection.disconnect();
+               return "Sensor Values Inserted";
+           } catch (IOException e) {
+               e.printStackTrace();
+           }
+
+       }
+       else if(method.equals("recordCamera"))
+       {
+           String time = params[1];
+           String result = params[2];
+           String location = params[3];
+
+           try {
+               URL url = new URL(recordCamera_url);
                HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
                httpURLConnection.setRequestMethod("POST");
                httpURLConnection.setDoOutput(true);

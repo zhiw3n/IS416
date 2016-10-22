@@ -10,3 +10,4 @@ public class InfoActivity extends Activity {
         setContentView(R.layout.activity_info);
     }
 }
+
