@@ -1,4 +1,14 @@
 <resources>
     <string name="app_name">Noise</string>
     <string name="title_activity_maps">Map</string>
+    <string name="country_prompt">Choose a GSR</string>
+
+    <string-array name="country_arrays">
+        <item>SISGSR 3 - 1 </item>
+        <item>SISGSR 3 - 2</item>
+        <item>SISGSR 3 - 3</item>
+        <item>SISGSR 3 - 4</item>
+        <item>SISGSR 3 - 5</item>
+        <item>SISGSR 3 - 6</item>
+    </string-array>
 </resources>
