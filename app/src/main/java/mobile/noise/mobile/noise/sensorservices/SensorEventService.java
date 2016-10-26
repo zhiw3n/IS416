@@ -15,6 +15,7 @@ import android.util.Log;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
 /**
  * Created by Fabian Schmitt on 05-Oct-16.
  */
@@ -24,7 +25,7 @@ public abstract class SensorEventService extends Service implements SensorEventL
     private Sensor sensor;
     private String method;
     private long lastTimestamp;
-    private static final double DELAY = 1e9;
+    private static final double DELAY = 60e9;
 
     abstract public int getSensorType();
 
@@ -63,7 +64,6 @@ public abstract class SensorEventService extends Service implements SensorEventL
         float[] values = sensorEvent.values;
         if (sensorEvent.timestamp - lastTimestamp > DELAY) {
             lastTimestamp = sensorEvent.timestamp;
-
             Log.i(this.toString(), "onSensorChanged() with value " + values[0]);
             DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
             Date dateobj = new Date();
@@ -72,7 +72,6 @@ public abstract class SensorEventService extends Service implements SensorEventL
             String finalResult = "" + values[0];
             time = time.toString();
             recordInput(df.format(dateobj).toString(), finalResult, location);
-
         }
     }
 

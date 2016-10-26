@@ -33,6 +33,8 @@ public class AndroidCameraMotionService extends Service {
     private static final double SENSITIVITY = 0.6; // In the interval of 0 and 1.
     private static final int CAMERA_INDEX = 1;
     private static final String TAG = "AC Motion Service";
+    private long lastTimestamp;
+    private static final double CAMERA_DELAY = 60e3;
 
     private Camera mCamera;
     private SurfaceTexture mTexture;
@@ -58,12 +60,15 @@ public class AndroidCameraMotionService extends Service {
                 Core.bitwise_and(mDiff1, mDiff2, mResult);
 
                 if (countNonZero(mResult) > (1-SENSITIVITY)*mWidth*mHeight) {
-                    Log.e(TAG, "There was movement with " + countNonZero(mResult) + " elements.");
-                    DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-                    Date dateobj = new Date();
-                  //  String time = "" + System.currentTimeMillis() / 1000;
-                    String location = CustomOnItemSelectedListener.globalSpinnerValue;
-                    recordMovement(df.format(dateobj).toString(),"1",location);
+                    if (System.currentTimeMillis() - lastTimestamp > CAMERA_DELAY) {
+                        lastTimestamp = System.currentTimeMillis();
+                        Log.e(TAG, "There was movement with " + countNonZero(mResult) + " elements.");
+                        DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+                        Date dateobj = new Date();
+                        //  String time = "" + System.currentTimeMillis() / 1000;
+                        String location = CustomOnItemSelectedListener.globalSpinnerValue;
+                        recordMovement(df.format(dateobj).toString(), "1", location);
+                    }
                 } else {
 
                     //   Log.i(TAG, "No movement with mDiff1: " + countNonZero(mDiff1) + " | mDiff2: " + countNonZero(mDiff2) + " | mResult: " + countNonZero(mResult));

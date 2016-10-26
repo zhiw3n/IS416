@@ -63,9 +63,11 @@ public class NoiseEventService extends Service {
                     try {
                         //get sound once every 5 seconds
                         Thread.sleep(1000);
+
                     } catch (Exception e) {
                         Log.i(TAG, "Problem!!!!");
                     }
+
                     if (isRunning != false) {
 
                         Log.i(TAG, "Sensor output!");
