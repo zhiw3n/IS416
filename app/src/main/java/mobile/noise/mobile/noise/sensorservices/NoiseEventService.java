@@ -70,8 +70,7 @@ public class NoiseEventService extends Service {
 
                         Log.i(TAG, "Sensor output!");
 
-
-    // Log.i("Volume Time: ", df.format(dateobj).toString());
+                         // Log.i("Volume Time: ", df.format(dateobj).toString());
                         int amplitutde = mRecorder.getMaxAmplitude();
                         double amplitudeEMA = getAmplitudeEMA();
                         double finalValue = Math.abs(20 * Math.log10(amplitutde));
@@ -86,10 +85,7 @@ public class NoiseEventService extends Service {
                         if (finalResult.contains("In")) {
                             finalResult = "70";
                         }
-
-
-
-                        finalResult = finalResult.substring(0, 2);
+                         finalResult = finalResult.substring(0, 2);
                         time = time.toString();
                         recordNoise(df.format(dateobj).toString(), finalResult, location);
                         Log.i("Volume Time: ", df.format(dateobj).toString());

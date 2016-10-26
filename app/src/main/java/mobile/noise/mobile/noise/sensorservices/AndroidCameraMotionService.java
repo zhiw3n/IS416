@@ -50,7 +50,6 @@ public class AndroidCameraMotionService extends Service {
             Mat m = new Mat(mWidth, mHeight, mType);
             m.put(0, 0, data);
             mMats.add(m);
-
             Log.i(TAG, "mMat of size " + mMats.size() + " contains: " + mMats);
 
             if (mMats.size() >= 3) {
@@ -67,7 +66,8 @@ public class AndroidCameraMotionService extends Service {
                     recordMovement(df.format(dateobj).toString(),"1",location);
                 } else {
 
-                 //   Log.i(TAG, "No movement with mDiff1: " + countNonZero(mDiff1) + " | mDiff2: " + countNonZero(mDiff2) + " | mResult: " + countNonZero(mResult));
+                    //   Log.i(TAG, "No movement with mDiff1: " + countNonZero(mDiff1) + " | mDiff2: " + countNonZero(mDiff2) + " | mResult: " + countNonZero(mResult));
+
 
                 }
 
@@ -82,9 +82,7 @@ public class AndroidCameraMotionService extends Service {
        // mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         // sensor = mSensorManager.getDefaultSensor(this.getSensorType());
 //        String sensorName = sensor.toString();
-
         String method = "recordCamera";
-
         BackgroundTask backgroundTask = new BackgroundTask(this);
         backgroundTask.execute(method,time,result,location);
     }
@@ -189,7 +187,6 @@ public class AndroidCameraMotionService extends Service {
             }
         }, 3000);
         mRunning = true;
-
         return START_STICKY;
     }
 

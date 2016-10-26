@@ -43,6 +43,7 @@ public class NotificationPage extends Activity {
             // json_url = "https://processing-angeliad.rhcloud.com/getLatestNoise.php";
             json_url = "https://processing-angeliad.rhcloud.com/getLatestNoise.php";
         }
+        
         @Override
         protected String doInBackground(Void... voids) {
             try {

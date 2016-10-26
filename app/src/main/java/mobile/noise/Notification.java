@@ -40,6 +40,7 @@ public class Notification extends Activity {
         setContentView(R.layout.view_noisy_areas);
         new BackGroundTask().execute();
     }
+
     public void showNotification(String result) {
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
@@ -55,15 +56,17 @@ public class Notification extends Activity {
         NotificationManager NM = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         NM.notify(0, builder.build());
 
-
     }
+
     class BackGroundTask extends AsyncTask<Void, Void, String> {
         String json_url;
+
         @Override
         protected void onPreExecute() {
             // json_url = "https://processing-angeliad.rhcloud.com/getLatestNoise.php";
-            json_url = "https://processing-angeliad.rhcloud.com/getLatestNoise.php";
+            json_url = "http://processing-angeliad.rhcloud.com/getTopRoom.php";
         }
+
         @Override
         protected String doInBackground(Void... voids) {
             try {
@@ -88,6 +91,7 @@ public class Notification extends Activity {
             }
             return null;
         }
+
         protected void onProgressUpdate(Void... values) {
             super.onProgressUpdate(values);
         }

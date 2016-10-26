@@ -7,8 +7,10 @@ import android.hardware.Sensor;
  */
 
 public class AccelerometerEventService extends SensorEventService {
+
     @Override
     public int getSensorType() {
         return Sensor.TYPE_ACCELEROMETER;
     }
+
 }

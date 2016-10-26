@@ -13,7 +13,6 @@ import mobile.noise.mobile.noise.sensorservices.AccelerometerEventService;
 import mobile.noise.mobile.noise.sensorservices.AndroidCameraMotionService;
 import mobile.noise.mobile.noise.sensorservices.CustomOnItemSelectedListener;
 import mobile.noise.mobile.noise.sensorservices.LightEventService;
-import mobile.noise.mobile.noise.sensorservices.NoiseEventService;
 import mobile.noise.mobile.noise.sensorservices.ProximityEventService;
 import mobile.noise.mobile.noise.sensorservices.SensorType;
 
@@ -22,13 +21,14 @@ public class MainActivity extends AppCompatActivity {
     private static ArrayList<Intent> serviceQueue = new ArrayList<Intent>();
     public static ArrayList<SensorType> sensorOn = new ArrayList<SensorType>() {{
 
-     add(SensorType.ACCELEROMETER);
-        add(SensorType.CAMERA);
-        add(SensorType.LIGHT);
-        add(SensorType.MICROPHONE);
-        add(SensorType.PROXIMITY);
+ //    add(SensorType.ACCELEROMETER);
+      //  add(SensorType.CAMERA);
+    //    add(SensorType.LIGHT);
+    //    add(SensorType.MICROPHONE);
+        // add(SensorType.PROXIMITY);
 
     }};
+
     public static boolean running = false;
 
     @Override
@@ -87,20 +87,21 @@ public class MainActivity extends AppCompatActivity {
         if (sensorOn.contains(SensorType.ACCELEROMETER)) {
             serviceQueue.add(new Intent(MainActivity.this, AccelerometerEventService.class));
         }
-
         if (sensorOn.contains(SensorType.CAMERA)) {
             serviceQueue.add(new Intent(MainActivity.this, AndroidCameraMotionService.class));
         }
-
         if (sensorOn.contains(SensorType.LIGHT)) {
             serviceQueue.add(new Intent(MainActivity.this, LightEventService.class));
         }
+
         //adds Noise Services Automatically
-          serviceQueue.add(new Intent(MainActivity.this, NoiseEventService.class));
+     //     serviceQueue.add(new Intent(MainActivity.this, NoiseEventService.class));
         /*
         if (sensorOn.contains(SensorType.MICROPHONE)) {
             sensorOn.add(new Intent(MainActivity.this, NoiseEventService.class));
         }
+
+
         */
         if (sensorOn.contains(SensorType.PROXIMITY)) {
             serviceQueue.add(new Intent(MainActivity.this, ProximityEventService.class));

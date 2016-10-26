@@ -19,6 +19,7 @@ import java.net.URLEncoder;
 /**
  * Created by prabeesh on 7/14/2015.
  */
+
 public class BackgroundTask extends AsyncTask<String,Void,String> {
   AlertDialog alertDialog;
     Context ctx;
@@ -34,12 +35,11 @@ public class BackgroundTask extends AsyncTask<String,Void,String> {
         String addAccelerometer_url = "https://processing-angeliad.rhcloud.com/addAccelerometer.php";
         String addProximity_url = "https://processing-angeliad.rhcloud.com/addProximity.php";
         String getLatestNoise_url = "https://processing-angeliad.rhcloud.com/getLatestNoise.php";
-
         //to be updated
-        String recordCamera_url = "https://processing-angeliad.rhcloud.com/addCamera.php";
 
+        String recordCamera_url = "https://processing-angeliad.rhcloud.com/addCamera.php";
         String method = params[0];
-       if(method.equals("recordNoise"))
+        if(method.equals("recordNoise"))
         {
             String time = params[1];
             String result = params[2];

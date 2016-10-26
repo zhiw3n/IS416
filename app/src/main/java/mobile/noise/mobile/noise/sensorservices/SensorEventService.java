@@ -15,7 +15,6 @@ import android.util.Log;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 /**
  * Created by Fabian Schmitt on 05-Oct-16.
  */
@@ -35,7 +34,6 @@ public abstract class SensorEventService extends Service implements SensorEventL
         sensor = mSensorManager.getDefaultSensor(this.getSensorType());
 
         lastTimestamp = 0;
-
         Log.i(this.toString(), "onCreate()");
     }
 
@@ -100,9 +98,6 @@ public abstract class SensorEventService extends Service implements SensorEventL
         BackgroundTask backgroundTask = new BackgroundTask(this);
         backgroundTask.execute(method,time,result,location);
     }
-
-
-
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int i) {
