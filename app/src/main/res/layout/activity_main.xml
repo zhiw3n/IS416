@@ -31,7 +31,8 @@
             android:id="@+id/imageView"
             android:src="@drawable/sensordyne_icon"
             android:layout_span="4"
-            android:layout_gravity="center" />
+            android:layout_gravity="center"
+            android:contentDescription="Logo" />
     </TableRow>
 
     <TableRow
@@ -62,6 +63,7 @@
             android:src="@drawable/searchicon"
             android:onClick="goToSearch"
             android:layout_weight="1"
+            android:contentDescription="Search"
             />
 
         <ImageButton
@@ -71,6 +73,7 @@
             android:src="@drawable/ic_action_name"
             android:onClick="goToSettings"
             android:layout_weight="1"
+            android:contentDescription="Settings"
             />
 
         <ImageButton
@@ -80,6 +83,7 @@
             android:src="@drawable/infoicon"
             android:onClick="goToInfo"
             android:layout_weight="1"
+            android:contentDescription="Info"
             />
     </TableRow>
 
