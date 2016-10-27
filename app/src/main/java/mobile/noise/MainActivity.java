@@ -58,29 +58,18 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+    }
 
-        findViewById(R.id.searchBtn).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, FloorActivity.class));
-            }
-        });
+    public void goToSearch(View v) {
+        startActivity(new Intent(MainActivity.this, FloorActivity.class));
+    }
 
-        findViewById(R.id.settingsBtn).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, SettingsActivity.class));
-            }
-        });
+    public void goToSettings(View v) {
+        startActivity(new Intent(MainActivity.this, SettingsActivity.class));
+    }
 
-        findViewById(R.id.infoBtn).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, InfoActivity.class));
-            }
-        });
-
-        //start notification page
+    public void goToInfo(View v) {
+        startActivity(new Intent(MainActivity.this, InfoActivity.class));
     }
 
     @Override

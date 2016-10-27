@@ -2,6 +2,7 @@ package mobile.noise;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.CompoundButton;
 
@@ -10,7 +11,7 @@ import mobile.noise.mobile.noise.sensorservices.SensorType;
 // import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
 
-public class SettingsActivity extends Activity {
+public class SettingsActivity extends AppCompatActivity {
 
     String [] SPINNERLIST = {"1 sec","10 secs","20 secs","30 secs"};
 

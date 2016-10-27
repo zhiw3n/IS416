@@ -39,60 +39,50 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/cameraSwitch"
-        android:layout_column="0"
         android:checked="true"
         android:layout_weight="1"
         android:text="Camera"
         android:textSize="18sp"
-        android:layout_span="10"
         android:textStyle="normal" />
 
     <Switch
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/lightSwitch"
-        android:layout_column="0"
         android:checked="true"
         android:layout_weight="1"
         android:text="Light"
-        android:layout_span="10"
-        android:textSize="18dp"
+        android:textSize="18sp"
         android:textStyle="normal" />
 
     <Switch
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/microphoneSwitch"
-        android:layout_column="0"
         android:checked="true"
         android:layout_weight="1"
         android:text="Microphone"
-        android:textSize="18dp"
-        android:layout_span="10"
+        android:textSize="18sp"
         android:textStyle="normal" />
 
     <Switch
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/accelerometerSwitch"
-        android:layout_column="0"
         android:checked="true"
         android:layout_weight="1"
         android:text="Accelerometer"
-        android:textSize="18dp"
-        android:layout_span="10"
+        android:textSize="18sp"
         android:textStyle="normal" />
 
     <Switch
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/proximitySwitch"
-        android:layout_column="0"
         android:checked="true"
         android:layout_weight="1"
         android:text="Proximity"
-        android:textSize="18dp"
-        android:layout_span="10"
+        android:textSize="18sp"
         android:textStyle="normal" />
 
     <TextView
@@ -103,7 +93,7 @@
         android:text="Data Collection Interval"
         android:id="@+id/datacollection_duration"
         android:layout_marginTop="12dp"
-        android:textSize="18dp" />
+        android:textSize="18sp" />
 
     <TextView
         android:layout_weight="1"
@@ -112,8 +102,7 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Set the duration to retrieve the data"
         android:id="@+id/textView"
-        android:textStyle="normal|italic"
-        android:layout_column="0" />
+        android:textStyle="normal|italic" />
 
     <Spinner
         android:id="@+id/durationSpinner"
@@ -139,7 +128,6 @@
         android:text="Notification"
         android:textColor="@color/colorPrimary"
         android:id="@+id/textView2"
-        android:layout_column="0"
         android:layout_marginTop="15dp" />
 
     <TextView
@@ -149,14 +137,12 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:text="Enable your sensor to allow us to collect information of your environment"
         android:id="@+id/textView3"
-        android:textStyle="normal|italic"
-        android:layout_column="0" />
+        android:textStyle="normal|italic" />
 
     <Switch
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/switch1"
-        android:layout_column="0"
         android:checked="true"
         android:layout_weight="1"
         android:text="Allow Notification"
