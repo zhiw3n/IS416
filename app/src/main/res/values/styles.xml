@@ -63,4 +63,24 @@
         <item name="android:textStyle">italic</item>
     </style>
 
+    <style name="PlaceTextViewStyle">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:padding">@dimen/list_element_margin</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:gravity">center_vertical|right</item>
+        <item name="android:background">@color/colorAccent</item>
+        <item name="android:textColor">?android:textColorPrimaryInverse</item>
+    </style>
+
+    <style name="RoomTextViewStyle">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">4</item>
+        <item name="android:padding">@dimen/list_element_margin</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:gravity">center_vertical|left</item>
+        <item name="android:background">@color/colorPrimaryDark</item>
+        <item name="android:textColor">?android:textColorPrimaryInverse</item>
+    </style>
+
 </resources>

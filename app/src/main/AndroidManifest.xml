@@ -3,8 +3,9 @@
     package="mobile.noise">
 
     <uses-sdk android:minSdkVersion="9" />
+
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
     <uses-feature
@@ -20,6 +21,10 @@
         android:name="android.hardware.camera.front.autofocus"
         android:required="false" />
 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -32,25 +37,24 @@
             android:name=".mobile.noise.sensorservices.AndroidCameraMotionService"
             android:enabled="true"
             android:exported="true" />
-
         <service android:name=".mobile.noise.sensorservices.AccelerometerEventService" />
         <service android:name=".mobile.noise.sensorservices.LightEventService" />
         <service android:name=".mobile.noise.sensorservices.ProximityEventService" />
-        <service android:name=".mobile.noise.sensorservices.NoiseEventService"/>
+        <service android:name=".mobile.noise.sensorservices.NoiseEventService" />
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity" android:label="SensorDyne">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".FloorActivity"/>
-        <activity android:name=".InfoActivity"/>
-        <activity android:name=".SettingsActivity"/>
-        <activity android:name=".Notification"/>
-        <activity android:name=".NotificationPage"/>
-
+        <activity android:name=".FloorActivity" />
+        <activity android:name=".InfoActivity" android:label="About SensorDyne" />
+        <activity android:name=".SettingsActivity" android:label="Settings"/>
+        <activity android:name=".Notification" />
+        <activity android:name=".NotificationPage" />
+        <activity android:name=".BestLocationActivity" android:label="Best Study Location"></activity>
     </application>
 
 </manifest>
