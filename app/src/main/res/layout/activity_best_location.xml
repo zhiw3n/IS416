@@ -22,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="@dimen/logo_height"
         android:id="@+id/imageView"
-        android:src="@drawable/trophy"
+        android:src="@drawable/trophy_logo"
         android:layout_gravity="center"
         android:contentDescription="Logo" />
 
@@ -50,7 +50,7 @@
 
             <ImageButton
                 android:src="@drawable/ic_chevron_right"
-                android:background="@android:color/transparent"
+                android:background="@color/colorNeutral"
                 android:layout_weight="1"
                 android:padding="@dimen/list_element_margin"
                 android:onClick="firstPlaceClicked"
@@ -78,7 +78,7 @@
 
             <ImageButton
                 android:src="@drawable/ic_chevron_right"
-                android:background="@android:color/transparent"
+                android:background="@color/colorNeutral"
                 android:layout_weight="1"
                 android:padding="@dimen/list_element_margin"
                 android:onClick="secondPlaceClicked"
@@ -106,7 +106,7 @@
 
             <ImageButton
                 android:src="@drawable/ic_chevron_right"
-                android:background="@android:color/transparent"
+                android:background="@color/colorNeutral"
                 android:layout_weight="1"
                 android:padding="@dimen/list_element_margin"
                 android:onClick="thirdPlaceClicked"

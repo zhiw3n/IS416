@@ -32,7 +32,6 @@
         android:largeHeap="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <service
             android:name=".mobile.noise.sensorservices.AndroidCameraMotionService"
             android:enabled="true"
@@ -42,7 +41,9 @@
         <service android:name=".mobile.noise.sensorservices.ProximityEventService" />
         <service android:name=".mobile.noise.sensorservices.NoiseEventService" />
 
-        <activity android:name=".MainActivity" android:label="SensorDyne">
+        <activity
+            android:name=".MainActivity"
+            android:label="SensorDyne">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -50,11 +51,18 @@
             </intent-filter>
         </activity>
         <activity android:name=".FloorActivity" />
-        <activity android:name=".InfoActivity" android:label="About SensorDyne" />
-        <activity android:name=".SettingsActivity" android:label="Settings"/>
+        <activity
+            android:name=".InfoActivity"
+            android:label="About SensorDyne" />
+        <activity
+            android:name=".SettingsActivity"
+            android:label="Settings" />
         <activity android:name=".Notification" />
         <activity android:name=".NotificationPage" />
-        <activity android:name=".BestLocationActivity" android:label="Best Study Location"></activity>
+        <activity
+            android:name=".BestLocationActivity"
+            android:label="Best Study Location" />
+        <activity android:name=".LoadingBestLocationActivity"></activity>
     </application>
 
 </manifest>

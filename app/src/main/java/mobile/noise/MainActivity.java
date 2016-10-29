@@ -64,6 +64,10 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(MainActivity.this, FloorActivity.class));
     }
 
+    public void goToRanking(View v) {
+        startActivity(new Intent(MainActivity.this, LoadingBestLocationActivity.class));
+    }
+
     public void goToSettings(View v) {
         startActivity(new Intent(MainActivity.this, SettingsActivity.class));
     }

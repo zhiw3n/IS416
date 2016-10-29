@@ -65,6 +65,30 @@
             android:onClick="goToSearch"
             android:layout_weight="1"
             android:contentDescription="Search"
+            android:background="@android:color/transparent"
+            />
+
+        <View
+            android:layout_width="1px"
+            android:layout_height="match_parent"
+            android:background="@android:color/black"
+            />
+
+        <ImageButton
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:id="@+id/rankingBtn"
+            android:src="@drawable/trophy"
+            android:onClick="goToRanking"
+            android:layout_weight="1"
+            android:contentDescription="Ranking"
+            android:background="@android:color/transparent"
+            />
+
+        <View
+            android:layout_width="1px"
+            android:layout_height="match_parent"
+            android:background="@android:color/black"
             />
 
         <ImageButton
@@ -75,6 +99,13 @@
             android:onClick="goToSettings"
             android:layout_weight="1"
             android:contentDescription="Settings"
+            android:background="@android:color/transparent"
+            />
+
+        <View
+            android:layout_width="1px"
+            android:layout_height="match_parent"
+            android:background="@android:color/black"
             />
 
         <ImageButton
@@ -85,6 +116,7 @@
             android:onClick="goToInfo"
             android:layout_weight="1"
             android:contentDescription="Info"
+            android:background="@android:color/transparent"
             />
     </TableRow>
 
