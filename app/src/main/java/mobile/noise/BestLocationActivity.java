@@ -42,19 +42,19 @@ public class BestLocationActivity extends AppCompatActivity {
     }
 
     public void firstPlaceClicked(View v) {
-        Intent i = new Intent(BestLocationActivity.this, InfoActivity.class);
+        Intent i = new Intent(BestLocationActivity.this, LocationResultActivity.class);
         i.putExtra("Room", room1Bundle);
         startActivity(i);
     }
 
     public void secondPlaceClicked(View v) {
-        Intent i = new Intent(BestLocationActivity.this, InfoActivity.class);
+        Intent i = new Intent(BestLocationActivity.this, LocationResultActivity.class);
         i.putExtra("Room", room2Bundle);
         startActivity(i);
     }
 
     public void thirdPlaceClicked(View v) {
-        Intent i = new Intent(BestLocationActivity.this, InfoActivity.class);
+        Intent i = new Intent(BestLocationActivity.this, LocationResultActivity.class);
         i.putExtra("Room", room3Bundle);
         startActivity(i);
     }

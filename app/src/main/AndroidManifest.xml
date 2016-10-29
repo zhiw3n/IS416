@@ -50,6 +50,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity android:name=".FloorActivity" />
         <activity
             android:name=".InfoActivity"
@@ -62,7 +63,12 @@
         <activity
             android:name=".BestLocationActivity"
             android:label="Best Study Location" />
-        <activity android:name=".LoadingBestLocationActivity"></activity>
+        <activity
+            android:name=".LoadingBestLocationActivity"
+            android:label="Loading"/>
+        <activity
+            android:name=".LocationResultActivity"
+            android:label="Result Details"/>
     </application>
 
 </manifest>
