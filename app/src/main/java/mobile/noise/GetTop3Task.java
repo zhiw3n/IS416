@@ -8,7 +8,7 @@ import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-
+import java.util.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,7 +16,11 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.URLEncoder;
 /**
  * Created by WenJiez on 26-10-16.
  */
@@ -24,6 +28,7 @@ import java.net.URL;
 public class GetTop3Task extends AsyncTask<Void, Void, String> {
 
     private String json_url;
+    private String graph_url;
     private Activity loaderActivity;
 
     public GetTop3Task(Activity loaderActivity) {
@@ -33,6 +38,7 @@ public class GetTop3Task extends AsyncTask<Void, Void, String> {
     @Override
     protected void onPreExecute() {
         json_url = "https://processing-angeliad.rhcloud.com/getTopRoom.php";
+
     }
 
     @Override
@@ -63,6 +69,8 @@ public class GetTop3Task extends AsyncTask<Void, Void, String> {
             e.printStackTrace();
         }
 
+
+
         return null;
     }
 
@@ -87,13 +95,30 @@ public class GetTop3Task extends AsyncTask<Void, Void, String> {
                  Log.i("light group : ", json_data.getString("light"));
                  Log.i("score : ", json_data.getString("score"));
 
+
                  Bundle roomBundle = new Bundle();
                  roomBundle.putString("Location", json_data.getString("location"));
+
                  roomBundle.putString("NoiseLevel", json_data.getString("noiseAverage")+" dB");
                  roomBundle.putString("NoiseGroup", json_data.getString("noise"));
                  roomBundle.putString("LightLevel", json_data.getString("lightAverage")+" Lux");
                  roomBundle.putString("LightGroup", json_data.getString("light"));
                  roomBundle.putString("Score", json_data.getString("score"));
+                 JSONArray noiseGraphPoints = json_data.getJSONArray("noiseGraphPoints");
+                double[] list = new double[5];
+                 for (int s=0;s<noiseGraphPoints.length();s++){
+                     list[s]=noiseGraphPoints.getDouble(s);
+
+                 }
+
+                 JSONArray lightGraphPoints = json_data.getJSONArray("lightGraphPoints");
+                 double[] lightList = new double[5];
+                 for (int s=0;s<lightGraphPoints.length();s++){
+                     lightList[s]=lightGraphPoints.getDouble(s);
+
+                 }
+                 roomBundle.putDoubleArray("noiseGraphPoints",list);
+                 roomBundle.putDoubleArray("lightGraphPoints",lightList);
                  intent.putExtra("Room " + (i+1), roomBundle);
              }
 
@@ -106,4 +131,8 @@ public class GetTop3Task extends AsyncTask<Void, Void, String> {
         }
 
     }
+
+
+
+
 }

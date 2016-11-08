@@ -22,7 +22,7 @@ public class BestLocationActivity extends AppCompatActivity {
 
         room1Bundle = b.getBundle("Room 1");
         room2Bundle = b.getBundle("Room 2");
-        // room3Bundle = b.getBundle("Room 3");
+        room3Bundle = b.getBundle("Room 3");
     }
 
     @Override
@@ -35,10 +35,10 @@ public class BestLocationActivity extends AppCompatActivity {
         v = (TextView) findViewById(R.id.ranked2Text);
         v.setText(room2Bundle.getString("Location"));
 
-        /*
+
         v = (TextView) findViewById(R.id.ranked3Text);
         v.setText(room3Bundle.getString("Location"));
-        */
+
     }
 
     public void firstPlaceClicked(View v) {
