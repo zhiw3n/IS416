@@ -62,7 +62,7 @@ public class NoiseEventService extends Service {
                 while (isRunning) {
                     try {
                         //get sound once every 5 seconds
-                        Thread.sleep(1000);
+                        Thread.sleep(3000);
 
                     } catch (Exception e) {
                         Log.i(TAG, "Problem!!!!");
@@ -71,32 +71,32 @@ public class NoiseEventService extends Service {
                     if (isRunning != false) {
 
                         Log.i(TAG, "Sensor output!");
-
-                         // Log.i("Volume Time: ", df.format(dateobj).toString());
                         int amplitutde = mRecorder.getMaxAmplitude();
                         double amplitudeEMA = getAmplitudeEMA();
                         double finalValue = Math.abs(20 * Math.log10(amplitutde));
                         String result = "" + amplitutde;
-                       // String location = "SISGSR3-1";
-                        //post to web service.
-                        DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-                        Date dateobj = new Date();
-                        String time = "" + System.currentTimeMillis() / 1000;
+
+
                         String location = CustomOnItemSelectedListener.globalSpinnerValue;
+
                         String finalResult = "" + Double.toString(finalValue-10);
+
                         if (finalResult.contains("In")) {
                             finalResult = "70";
                         }
+
                          finalResult = finalResult.substring(0, 2);
-                        time = time.toString();
-                        recordNoise(df.format(dateobj).toString(), finalResult, location);
-                        Log.i("Volume Time: ", df.format(dateobj).toString());
+                        DateFormat df = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
+                        Date dateobj = new Date();
+                        Date currentDate = new Date(System.currentTimeMillis() - 3600 * 1000);
+                        String time = df.format(currentDate).toString();
+                        recordNoise(time, finalResult, location);
+
+                        Log.i("Volume Time: ", df.format(currentDate).toString());
                         Log.i("Volume Result: ", Double.toString(finalValue));
                         Log.i("ampltitudeEMA: ", Integer.toString(amplitutde));
                         Log.i("Volume Location: ", location);
                         finalValue = 0;
-
-
                     }
                 }
             }

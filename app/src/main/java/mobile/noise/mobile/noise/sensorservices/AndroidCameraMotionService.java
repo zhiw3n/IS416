@@ -52,7 +52,7 @@ public class AndroidCameraMotionService extends Service {
             Mat m = new Mat(mWidth, mHeight, mType);
             m.put(0, 0, data);
             mMats.add(m);
-            Log.i(TAG, "mMat of size " + mMats.size() + " contains: " + mMats);
+         //   Log.i(TAG, "mMat of size " + mMats.size() + " contains: " + mMats);
 
             if (mMats.size() >= 3) {
                 Core.absdiff(mMats.get(0), mMats.get(1), mDiff1);
@@ -63,11 +63,14 @@ public class AndroidCameraMotionService extends Service {
                     if (System.currentTimeMillis() - lastTimestamp > CAMERA_DELAY) {
                         lastTimestamp = System.currentTimeMillis();
                         Log.e(TAG, "There was movement with " + countNonZero(mResult) + " elements.");
-                        DateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-                        Date dateobj = new Date();
+
                         //  String time = "" + System.currentTimeMillis() / 1000;
                         String location = CustomOnItemSelectedListener.globalSpinnerValue;
-                        recordMovement(df.format(dateobj).toString(), "1", location);
+                        DateFormat df = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
+                        Date dateobj = new Date();
+                        Date currentDate = new Date(System.currentTimeMillis() - 3600 * 1000);
+                        String time = df.format(currentDate).toString();
+                        recordMovement(time, "1", location);
                     }
                 } else {
 
@@ -116,6 +119,7 @@ public class AndroidCameraMotionService extends Service {
             // http://answers.opencv.org/question/14717/using-default-baseloadercallback-in-an-android-service/
         }
         */
+
     };
 
     @Override
@@ -181,7 +185,7 @@ public class AndroidCameraMotionService extends Service {
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
-                Log.i(TAG, "First run at: " + SystemClock.elapsedRealtime());
+             //   Log.i(TAG, "First run at: " + SystemClock.elapsedRealtime());
 
                 if (mRunning) {
                     mCamera.startPreview();
