@@ -228,7 +228,7 @@ public class MainActivity extends AppCompatActivity{
                     for (int i = 0; i < jArray.length(); i++) {
                         JSONObject json_data = jArray.getJSONObject(i);
                         thiefArray = "There is a movement at "  + json_data.getString("location")
-                        + "at this time " + json_data.getString("time")   ;
+                        + " at this time " + json_data.getString("time") ;
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
