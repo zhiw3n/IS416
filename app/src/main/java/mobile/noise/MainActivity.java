@@ -64,20 +64,20 @@ public class MainActivity extends AppCompatActivity{
         setContentView(R.layout.activity_main);
         addListenerOnSpinnerItemSelection();
 
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                while(true){
-//                    try {
-//                        Thread.sleep(1000);
-//                    } catch (InterruptedException e) {
-//                        e.printStackTrace();
-//                    }
-//
-//                    new JSONTask().execute("http://processing-angeliad.rhcloud.com/getThief.php");
-//                }
-//            }
-//        }).start();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while(true){
+                    try {
+                        Thread.sleep(30000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                    new JSONTask().execute("http://processing-angeliad.rhcloud.com/getThief.php");
+                }
+            }
+        }).start();
 
         findViewById(R.id.startBtn).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -234,7 +234,7 @@ public class MainActivity extends AppCompatActivity{
                     e.printStackTrace();
                 }
                 showNotification();
-            }
+             }
         }
     }
 }

@@ -104,10 +104,8 @@ public class BackgroundTask extends AsyncTask<String,Void,String> {
                 bufferedWriter.flush();
                 bufferedWriter.close();
                 outputStream.close();
-
                 InputStream IS = httpURLConnection.getInputStream();
                 IS.close();
-
                 httpURLConnection.disconnect();
                 return "Sensor Values Inserted";
             } catch (IOException e) {

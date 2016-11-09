@@ -12,4 +12,5 @@ public class ProximityEventService extends SensorEventService {
     public int getSensorType() {
         return Sensor.TYPE_PROXIMITY;
     }
+
 }
