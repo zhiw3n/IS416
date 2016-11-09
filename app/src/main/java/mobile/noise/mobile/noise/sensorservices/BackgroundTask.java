@@ -35,7 +35,6 @@ public class BackgroundTask extends AsyncTask<String,Void,String> {
     @Override
     protected String doInBackground(String... params) {
         String addNoise_url = "https://processing-angeliad.rhcloud.com/addNoise.php";
-
         String addLight_url = "https://processing-angeliad.rhcloud.com/addLight.php";
         String addAccelerometer_url = "https://processing-angeliad.rhcloud.com/addAccelerometer.php";
         String addProximity_url = "https://processing-angeliad.rhcloud.com/addProximity.php";

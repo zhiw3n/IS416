@@ -63,12 +63,11 @@ public class AndroidCameraMotionService extends Service {
                     if (System.currentTimeMillis() - lastTimestamp > CAMERA_DELAY) {
                         lastTimestamp = System.currentTimeMillis();
                         Log.e(TAG, "There was movement with " + countNonZero(mResult) + " elements.");
-
                         //  String time = "" + System.currentTimeMillis() / 1000;
                         String location = CustomOnItemSelectedListener.globalSpinnerValue;
                         DateFormat df = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
-                        Date dateobj = new Date();
-                        Date currentDate = new Date(System.currentTimeMillis() - 3600 * 1000);
+                    //    Date dateobj = new Date();
+                        Date currentDate = new Date();
                         String time = df.format(currentDate).toString();
                         recordMovement(time, "1", location);
                     }

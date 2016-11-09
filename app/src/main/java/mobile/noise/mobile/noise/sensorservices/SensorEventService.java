@@ -90,10 +90,7 @@ public abstract class SensorEventService extends Service implements SensorEventL
             Date currentDate = new Date();
             String time = df.format(currentDate).toString();
             recordInput(time, finalResult, CustomOnItemSelectedListener.globalSpinnerValue);
-
-
-
-        }
+       }
     }
 
     public void recordInput(String time, String result, String location )
@@ -101,6 +98,7 @@ public abstract class SensorEventService extends Service implements SensorEventL
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         sensor = mSensorManager.getDefaultSensor(this.getSensorType());
         String sensorName = sensor.toString();
+
         if(sensorName.contains("Light")){
             method = "recordLight";
         }
@@ -118,12 +116,10 @@ public abstract class SensorEventService extends Service implements SensorEventL
         BackgroundTask backgroundTask = new BackgroundTask(this);
         backgroundTask.execute(method,time,result,location);
     }
-
     @Override
     public void onAccuracyChanged(Sensor sensor, int i) {
         // Do nothing.
     }
-
     @Override
     public String toString() {
         return sensor.getName() + "Sensor Event Service";
