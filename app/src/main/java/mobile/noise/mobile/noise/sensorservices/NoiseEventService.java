@@ -83,13 +83,12 @@ public class NoiseEventService extends Service {
                             finalResult = "70";
                         }
 
-                         finalResult = finalResult.substring(0, 2);
+                        finalResult = finalResult.substring(0, 2);
                         DateFormat df = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
-                        Date dateobj = new Date();
                         Date currentDate = new Date();
                         String time = df.format(currentDate).toString();
-                        recordNoise(time, finalResult, location);
 
+                        recordNoise(time, finalResult, location);
                         Log.i("Volume Time: ", df.format(currentDate).toString());
                         Log.i("Volume Result: ", Double.toString(finalValue));
                         Log.i("ampltitudeEMA: ", Integer.toString(amplitutde));
@@ -143,5 +142,6 @@ public class NoiseEventService extends Service {
             mRecorder = null;
         }
     }
+
 }
 
