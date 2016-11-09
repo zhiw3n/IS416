@@ -35,12 +35,6 @@
         android:layout_height="200dip"
         android:id="@+id/brightnessGraph" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:background="@color/colorNeutral"
-        android:id="@+id/view" />
-
     <TextView
         android:id="@+id/brightnessText"
         android:text="Current brightness: Dark (0 Lux)"
@@ -61,12 +55,6 @@
         android:id="@+id/noiseText"
         android:text="Current noise: Quiet (0 dB)"
         style="@style/NormalTextViewStyle"
-        />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:background="@color/colorNeutral"
         />
 
 </LinearLayout>
