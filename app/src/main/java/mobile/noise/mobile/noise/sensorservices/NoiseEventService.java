@@ -61,9 +61,7 @@ public class NoiseEventService extends Service {
             public void run() {
                 while (isRunning) {
                     try {
-                        //get sound once every 5 seconds
                         Thread.sleep(3000);
-
                     } catch (Exception e) {
                         Log.i(TAG, "Problem!!!!");
                     }
@@ -88,7 +86,7 @@ public class NoiseEventService extends Service {
                          finalResult = finalResult.substring(0, 2);
                         DateFormat df = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
                         Date dateobj = new Date();
-                        Date currentDate = new Date(System.currentTimeMillis() - 3600 * 1000);
+                        Date currentDate = new Date();
                         String time = df.format(currentDate).toString();
                         recordNoise(time, finalResult, location);
 

@@ -86,13 +86,11 @@ public abstract class SensorEventService extends Service implements SensorEventL
 
             DateFormat df = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
             Date dateobj = new Date();
-            Date currentDate = new Date(System.currentTimeMillis() - 3600 * 1000);
+           // Date currentDate = new Date(System.currentTimeMillis() - 3600 * 1000);
+            Date currentDate = new Date();
             String time = df.format(currentDate).toString();
-            if(finalResult.equals(0)){
-                //if proximity records nobody infront, it wont write into DB
-            } else {
-                recordInput(time, finalResult, CustomOnItemSelectedListener.globalSpinnerValue);
-            }
+            recordInput(time, finalResult, CustomOnItemSelectedListener.globalSpinnerValue);
+
 
 
         }

@@ -22,29 +22,30 @@ public class NotificationPage extends Activity {
         textView.setText(MainActivity.thiefArray);
      //   new JSONTask().execute("http://processing-angeliad.rhcloud.com/getTopRoom.php");
     }
+/*
+ public void showNotification() {
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
+        builder.setSmallIcon(R.mipmap.ic_launcher);
+        builder.setContentTitle("Notification!");
+        builder.setContentText("Noisy Area Detected! Click to view more details.");
+        Intent intent = new Intent(this, NotificationPage.class);
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+        stackBuilder.addParentStack(NotificationPage.class);
+        stackBuilder.addNextIntent(intent);
+        PendingIntent pendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+        builder.setContentIntent(pendingIntent);
+        NotificationManager NM = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        NM.notify(0, builder.build());
+    }
+*/
 
-//    public void showNotification() {
-//        NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
-//        builder.setSmallIcon(R.mipmap.ic_launcher);
-//        builder.setContentTitle("Notification!");
-//        builder.setContentText("Noisy Area Detected! Click to view more details.");
-//        Intent intent = new Intent(this, NotificationPage.class);
-//        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
-//        stackBuilder.addParentStack(NotificationPage.class);
-//        stackBuilder.addNextIntent(intent);
-//        PendingIntent pendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
-//        builder.setContentIntent(pendingIntent);
-//        NotificationManager NM = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-//        NM.notify(0, builder.build());
-//    }
 //    class JSONTask extends AsyncTask<String, String, String> {
 //        String json_url;
-//
 //        @Override
 //        protected String doInBackground(String... params) {
 //            HttpURLConnection connection = null;
-//
 //            BufferedReader reader = null;
+//
 //            try {
 //                URL url = new URL(params[0].trim());
 //
@@ -57,7 +58,6 @@ public class NotificationPage extends Activity {
 //                StringBuffer StringBuffer = new StringBuffer();
 //
 //                while ((JSON_STRING = reader.readLine()) != null) {
-//
 //                    StringBuffer.append(JSON_STRING + "\n");
 //                }
 //

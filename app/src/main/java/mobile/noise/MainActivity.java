@@ -64,20 +64,20 @@ public class MainActivity extends AppCompatActivity{
         setContentView(R.layout.activity_main);
         addListenerOnSpinnerItemSelection();
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while(true){
-                    try {
-                        Thread.sleep(1000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-
-                    new JSONTask().execute("http://processing-angeliad.rhcloud.com/getThief.php");
-                }
-            }
-        }).start();
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                while(true){
+//                    try {
+//                        Thread.sleep(1000);
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    }
+//
+//                    new JSONTask().execute("http://processing-angeliad.rhcloud.com/getThief.php");
+//                }
+//            }
+//        }).start();
 
         findViewById(R.id.startBtn).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,8 +86,8 @@ public class MainActivity extends AppCompatActivity{
                 if (!running) {
                     addIntentsToQueue();
                     for (Intent i : serviceQueue) {
-                        startService(i);
-                        showNotification();
+                       startService(i);
+                      //  showNotification();
                         //startActivity(new Intent(MainActivity.this, NotificationPage.class));
                     }
 
@@ -191,7 +191,6 @@ public class MainActivity extends AppCompatActivity{
 
                     StringBuffer.append(JSON_STRING + "\n");
                 }
-
                 // stream.close();
 
                 //  textView.setText(StringBuffer.toString());
@@ -231,7 +230,6 @@ public class MainActivity extends AppCompatActivity{
                         thiefArray = "There is a movement at "  + json_data.getString("location")
                         + "at this time " + json_data.getString("time")   ;
                     }
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
