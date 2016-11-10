@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity{
             public void run() {
                 while(true){
                     try {
-                        Thread.sleep(1000);
+                        Thread.sleep(20000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -263,6 +263,7 @@ public class MainActivity extends AppCompatActivity{
                     camera1.startPreview();
                     isFlashLightOn = true;
                 }
+                //to flash longer, comment out the bottom 3 lines
                 camera1.stopPreview();
                 camera1.release();
                 camera1 = null;
