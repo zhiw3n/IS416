@@ -9,7 +9,6 @@ import android.hardware.Camera;
 import android.hardware.camera2.CameraCaptureSession;
 import android.hardware.camera2.CameraDevice;
 import android.hardware.camera2.CameraManager;
-import android.hardware.camera2.CameraMetadata;
 import android.hardware.camera2.CaptureRequest;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -76,7 +75,7 @@ public class MainActivity extends AppCompatActivity{
     private static ArrayList<Intent> serviceQueue = new ArrayList<Intent>();
     public static ArrayList<SensorType> sensorOn = new ArrayList<SensorType>() {{
         add(SensorType.ACCELEROMETER);
-        add(SensorType.CAMERA);
+//        add(SensorType.CAMERA);
         add(SensorType.LIGHT);
         add(SensorType.MICROPHONE);
         add(SensorType.PROXIMITY);
@@ -110,7 +109,6 @@ public class MainActivity extends AppCompatActivity{
         findViewById(R.id.startBtn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-1
                 if (!running) {
                     addIntentsToQueue();
                     for (Intent i : serviceQueue) {
@@ -382,7 +380,7 @@ public class MainActivity extends AppCompatActivity{
                     String[] tempNames = new String(response).split(",");
 //                System.out.println(tempNames[0]);
                     macAddress = tempNames[0].substring(8, tempNames[0].length() - 1);
-                    Log.i("macAddress", macAddress);
+                 //   Log.i("macAddress", macAddress);
                 } catch (Exception e) {
 
                 }
@@ -408,9 +406,9 @@ public class MainActivity extends AppCompatActivity{
                     wr.close();
 
                     int responseCode = con.getResponseCode();
-                System.out.println("\nSending 'POST' request to URL : " + url);
-                System.out.println("Post parameters : " + urlParameters);
-                System.out.println("Response Code : " + responseCode);
+//                System.out.println("\nSending 'POST' request to URL : " + url);
+//                System.out.println("Post parameters : " + urlParameters);
+//                System.out.println("Response Code : " + responseCode);
 
                     BufferedReader in = new BufferedReader(
                             new InputStreamReader(con.getInputStream()));
@@ -476,40 +474,6 @@ public class MainActivity extends AppCompatActivity{
 
     }
 
-
-
-    /**
-     * session callback
-     */
-
-    @TargetApi(23)
-    public void turnOnFlashLight() {
-        try {
-            mBuilder.set(CaptureRequest.FLASH_MODE, CameraMetadata.FLASH_MODE_TORCH);
-            mSession.setRepeatingRequest(mBuilder.build(), null, null);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    @TargetApi(23)
-    public void turnOffFlashLight() {
-        try {
-            mBuilder.set(CaptureRequest.FLASH_MODE, CameraMetadata.FLASH_MODE_OFF);
-            mSession.setRepeatingRequest(mBuilder.build(), null, null);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    @TargetApi(23)
-    private void close() {
-        if (mCameraDevice == null || mSession == null) {
-            return;
-        }
-        mSession.close();
-        mCameraDevice.close();
-        mCameraDevice = null;
-        mSession = null;
-    }
 
 
 
