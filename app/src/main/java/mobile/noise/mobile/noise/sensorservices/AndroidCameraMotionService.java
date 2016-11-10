@@ -91,7 +91,13 @@ public class AndroidCameraMotionService extends Service {
 //        String sensorName = sensor.toString();
         String method = "recordCamera";
         BackgroundTask backgroundTask = new BackgroundTask(this);
-        backgroundTask.execute(method,time,result,location);
+//        if(MainActivity.pointLocation == null ) {
+//            //just in case task takes too long
+//            //SMUSISL3SR3-4
+            backgroundTask.execute(method,time,result, location);
+//        } else {
+//        backgroundTask.execute(method, time, result, MainActivity.pointLocation);
+//        }
     }
 
 

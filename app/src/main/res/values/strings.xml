@@ -1,15 +1,13 @@
 <resources>
     <string name="app_name">Noise</string>
     <string name="title_activity_maps">Map</string>
-    <string name="country_prompt">Choose a GSR</string>
+    <string name="country_prompt">Choose a Seimnar Room</string>
 
     <string-array name="country_arrays">
-        <item>SISGSR 3 - 1 </item>
-        <item>SISGSR 3 - 2</item>
-        <item>SISGSR 3 - 3</item>
-        <item>SISGSR 3 - 4</item>
-        <item>SISGSR 3 - 5</item>
-        <item>SISGSR 3 - 6</item>
+        <item>SMUSISL3SR3-4 </item>
+        <item>SMUSISL3SR3-3</item>
+        <item>SMUSISL3SR3-2</item>
+        <item>SMUSISL3SR3-4</item>
     </string-array>
 
     <string-array name="duration_array">

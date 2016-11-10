@@ -1,14 +1,16 @@
 package mobile.noise.mobile.noise.sensorservices;
+
 import android.app.Service;
 import android.content.Intent;
 import android.media.MediaRecorder;
 import android.os.IBinder;
 import android.util.Log;
 import android.widget.Spinner;
+
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.io.IOException;
 
 public class NoiseEventService extends Service {
     private static double mEMA = 0.0;
@@ -114,7 +116,13 @@ public class NoiseEventService extends Service {
     {
         String method = "recordNoise";
         BackgroundTask backgroundTask = new BackgroundTask(this);
-        backgroundTask.execute(method,time,result,location);
+//        if(MainActivity.pointLocation == null ) {
+            //just in case task takes too long
+            //SMUSISL3SR3-4
+            backgroundTask.execute(method,time,result, location);
+//        } else {
+//        //    backgroundTask.execute(method, time, result, MainActivity.pointLocation);
+//        }
     }
 
     public double getAmplitude() {

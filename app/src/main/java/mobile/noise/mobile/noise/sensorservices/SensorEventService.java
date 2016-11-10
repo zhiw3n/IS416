@@ -114,7 +114,13 @@ public abstract class SensorEventService extends Service implements SensorEventL
         }
 
         BackgroundTask backgroundTask = new BackgroundTask(this);
-        backgroundTask.execute(method,time,result,location);
+//        if(MainActivity.pointLocation == null ) {
+//            //just in case task takes too long
+//        //SMUSISL3SR3-4
+            backgroundTask.execute(method,time,result, location);
+//        } else {
+//            backgroundTask.execute(method, time, result, MainActivity.pointLocation);
+//        }
     }
     @Override
     public void onAccuracyChanged(Sensor sensor, int i) {
