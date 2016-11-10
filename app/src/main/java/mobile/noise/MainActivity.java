@@ -1,6 +1,5 @@
 package mobile.noise;
 
-import android.annotation.TargetApi;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -188,7 +187,7 @@ public class MainActivity extends AppCompatActivity{
         NotificationManager NM = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         NM.notify(0, builder.build());
     }
-@TargetApi(23)
+
     class JSONTask extends AsyncTask<String, String, String> {
 
         @Override
