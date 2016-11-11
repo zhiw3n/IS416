@@ -40,8 +40,8 @@ public class Notification extends Activity {
         setContentView(R.layout.view_noisy_areas);
         new BackGroundTask().execute();
     }
-    public void showNotification(String result) {
 
+    public void showNotification(String result) {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
         builder.setSmallIcon(R.mipmap.ic_launcher);
         builder.setContentTitle("Notification");
@@ -54,16 +54,10 @@ public class Notification extends Activity {
         builder.setContentIntent(pendingIntent);
         NotificationManager NM = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         NM.notify(0, builder.build());
-
-
     }
+
     class BackGroundTask extends AsyncTask<Void, Void, String> {
         String json_url;
-        @Override
-        protected void onPreExecute() {
-            // json_url = "https://processing-angeliad.rhcloud.com/getLatestNoise.php";
-            json_url = "https://processing-angeliad.rhcloud.com/getLatestNoise.php";
-        }
         @Override
         protected String doInBackground(Void... voids) {
             try {
@@ -97,12 +91,13 @@ public class Notification extends Activity {
             //send notifications here
             TextView textView = (TextView) findViewById(R.id.textView);
             textView.setText(result);
+
             try {
                 Thread.sleep(10000);
             } catch(Exception e ){
 
             }
-            showNotification(result);;
+            showNotification(result);
             if (result != null) {
                 try
                 {
@@ -121,46 +116,8 @@ public class Notification extends Activity {
                     Toast.makeText(getApplicationContext(), "Error Parsing",  Toast.LENGTH_LONG).show();
                 }
             }
-
         }
     }
-
-/*
-    public void processJSON(String result) {
-
-        int value = Integer.parseInt(result);
-
-        if (value >= 30000) {
-
-
-            //send notificaitons
-        }
-    }
-
-}
-*/
-
-
-/*
-        ET_NAME = (EditText)findViewById(R.id.name);
-        ET_USER_NAME= (EditText)findViewById(R.id.new_user_name);
-        ET_USER_PASS = (EditText)findViewById(R.id.new_user_pass);
-
-
-    }
-    public void userReg(View view)
-    {
-
-        name = ET_NAME.getText().toString();
-        user_name = ET_USER_NAME.getText().toString();
-        user_pass =ET_USER_PASS.getText().toString();
-        String method = "register";
-        BackgroundTask backgroundTask = new BackgroundTask(this);
-        backgroundTask.execute(method,name,user_name,user_pass);
-        finish();
-
-    }
-*/
 
 
 }

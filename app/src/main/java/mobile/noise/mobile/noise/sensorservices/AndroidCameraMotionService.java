@@ -17,10 +17,12 @@ import org.opencv.android.OpenCVLoader;
 import org.opencv.core.Core;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
-import org.opencv.imgproc.Imgproc;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static org.opencv.core.Core.countNonZero;
@@ -31,6 +33,8 @@ public class AndroidCameraMotionService extends Service {
     private static final double SENSITIVITY = 0.5; // In the interval of 0 and 1.
     private static final int CAMERA_INDEX = 1;
     private static final String TAG = "AC Motion Service";
+    private long lastTimestamp;
+    private static final double CAMERA_DELAY = 60e3;
 
     private Camera mCamera;
     private SurfaceTexture mTexture;
@@ -48,8 +52,7 @@ public class AndroidCameraMotionService extends Service {
             Mat m = new Mat(mWidth, mHeight, mType);
             m.put(0, 0, data);
             mMats.add(m);
-
-            Log.i(TAG, "mMat of size " + mMats.size() + " contains: " + mMats);
+         //   Log.i(TAG, "mMat of size " + mMats.size() + " contains: " + mMats);
 
             if (mMats.size() >= 3) {
                 Core.absdiff(mMats.get(0), mMats.get(1), mDiff1);
@@ -57,9 +60,22 @@ public class AndroidCameraMotionService extends Service {
                 Core.bitwise_and(mDiff1, mDiff2, mResult);
 
                 if (countNonZero(mResult) > (1-SENSITIVITY)*mWidth*mHeight) {
-                    Log.e(TAG, "There was movement with " + countNonZero(mResult) + " elements.");
+                    if (System.currentTimeMillis() - lastTimestamp > CAMERA_DELAY) {
+                        lastTimestamp = System.currentTimeMillis();
+                        Log.e(TAG, "There was movement with " + countNonZero(mResult) + " elements.");
+                        //  String time = "" + System.currentTimeMillis() / 1000;
+                        String location = CustomOnItemSelectedListener.globalSpinnerValue;
+                        DateFormat df = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
+                    //    Date dateobj = new Date();
+                        Date currentDate = new Date();
+                        String time = df.format(currentDate).toString();
+                        recordMovement(time, "1", location);
+                    }
                 } else {
-                    Log.i(TAG, "No movement with mDiff1: " + countNonZero(mDiff1) + " | mDiff2: " + countNonZero(mDiff2) + " | mResult: " + countNonZero(mResult));
+
+                    //   Log.i(TAG, "No movement with mDiff1: " + countNonZero(mDiff1) + " | mDiff2: " + countNonZero(mDiff2) + " | mResult: " + countNonZero(mResult));
+
+
                 }
 
                 mMats.get(0).release();
@@ -67,6 +83,23 @@ public class AndroidCameraMotionService extends Service {
             }
         }
     };
+
+    public void recordMovement(String time, String result, String location )
+    {
+       // mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        // sensor = mSensorManager.getDefaultSensor(this.getSensorType());
+//        String sensorName = sensor.toString();
+        String method = "recordCamera";
+        BackgroundTask backgroundTask = new BackgroundTask(this);
+//        if(MainActivity.pointLocation == null ) {
+//            //just in case task takes too long
+//            //SMUSISL3SR3-4
+            backgroundTask.execute(method,time,result, location);
+//        } else {
+//        backgroundTask.execute(method, time, result, MainActivity.pointLocation);
+//        }
+    }
+
 
     private BaseLoaderCallback mLoaderCallback = new BaseLoaderCallback(this) {
         @Override
@@ -91,6 +124,7 @@ public class AndroidCameraMotionService extends Service {
             // http://answers.opencv.org/question/14717/using-default-baseloadercallback-in-an-android-service/
         }
         */
+
     };
 
     @Override
@@ -156,7 +190,7 @@ public class AndroidCameraMotionService extends Service {
         final Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
-                Log.i(TAG, "First run at: " + SystemClock.elapsedRealtime());
+             //   Log.i(TAG, "First run at: " + SystemClock.elapsedRealtime());
 
                 if (mRunning) {
                     mCamera.startPreview();
@@ -167,7 +201,6 @@ public class AndroidCameraMotionService extends Service {
             }
         }, 3000);
         mRunning = true;
-
         return START_STICKY;
     }
 

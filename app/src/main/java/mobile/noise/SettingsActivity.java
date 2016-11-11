@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
+import android.widget.Spinner;
 
 import mobile.noise.mobile.noise.sensorservices.SensorType;
 
@@ -13,19 +15,19 @@ import mobile.noise.mobile.noise.sensorservices.SensorType;
 
 public class SettingsActivity extends AppCompatActivity {
 
-    String [] SPINNERLIST = {"1 sec","10 secs","20 secs","30 secs"};
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        /*
-        ArrayAdapter<String> arrayAdapter=new ArrayAdapter<String>(this,
-                android.R.layout.simple_dropdown_item_1line, SPINNERLIST);
-        MaterialBetterSpinner betterSpinner=(MaterialBetterSpinner) findViewById(R.id.duration_dropdown);
-        betterSpinner.setAdapter(arrayAdapter);
-        */
+        Spinner spinner = (Spinner) findViewById(R.id.durationSpinner);
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+        R.array.duration_array, android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        spinner.setAdapter(adapter);
 
         findViewById(R.id.accelerometerSwitch).setOnClickListener(new View.OnClickListener() {
             @Override
