@@ -61,7 +61,6 @@ public class MainActivity extends AppCompatActivity{
     public static String macAddress;
     public static String pointLocation;
 
-
     private Camera camera1;
     private Camera.Parameters parameters;
     boolean isFlashLightOn = false;
@@ -278,7 +277,7 @@ public class MainActivity extends AppCompatActivity{
 
         @Override
         protected String doInBackground(String... params) {
-
+            try {
                 try {
                     for (Enumeration<NetworkInterface> en = NetworkInterface
                             .getNetworkInterfaces(); en.hasMoreElements(); ) {
@@ -380,7 +379,7 @@ public class MainActivity extends AppCompatActivity{
                     String[] tempNames = new String(response).split(",");
 //                System.out.println(tempNames[0]);
                     macAddress = tempNames[0].substring(8, tempNames[0].length() - 1);
-                 //   Log.i("macAddress", macAddress);
+                    //   Log.i("macAddress", macAddress);
                 } catch (Exception e) {
 
                 }
@@ -406,9 +405,9 @@ public class MainActivity extends AppCompatActivity{
                     wr.close();
 
                     int responseCode = con.getResponseCode();
-//                System.out.println("\nSending 'POST' request to URL : " + url);
-//                System.out.println("Post parameters : " + urlParameters);
-//                System.out.println("Response Code : " + responseCode);
+                    //    System.out.println("\nSending 'POST' request to URL : " + url);
+                    //    System.out.println("Post parameters : " + urlParameters);
+                    //    System.out.println("Response Code : " + responseCode);
 
                     BufferedReader in = new BufferedReader(
                             new InputStreamReader(con.getInputStream()));
@@ -425,8 +424,12 @@ public class MainActivity extends AppCompatActivity{
                 } catch (Exception e) {
 
                 }
+            }catch(Exception e){
+              return  pointLocation = CustomOnItemSelectedListener.globalSpinnerValue;
+            }
 
             return null;
+
         }
 
         @Override
@@ -453,18 +456,22 @@ public class MainActivity extends AppCompatActivity{
                         Log.i("location", f.get("mapped_location").toString());
                     }
                 }
+
                 catch(Exception e){
-                }
-                try {
-                    JSONArray jArray = new JSONArray(result);
-                    ArrayList<String> newArray = new ArrayList();
-                    JSONObject lastLocation = (JSONObject) jArray.get(jArray.length()-1);
-                    pointLocation = lastLocation.toString();
-                    Log.i("LAST", lastLocation.toString());
-                }
-                catch (Exception e){
 
                 }
+
+                    try {
+                        JSONArray jArray = new JSONArray(result);
+                        ArrayList<String> newArray = new ArrayList();
+                        JSONObject lastLocation = (JSONObject) jArray.get(jArray.length()-1);
+                        pointLocation = lastLocation.toString();
+                     //   Log.i("LAST", lastLocation.toString());
+                    }
+
+                    catch (Exception e){
+
+                    }
 
             } else{
                 //if results = null;
@@ -473,10 +480,5 @@ public class MainActivity extends AppCompatActivity{
         }
 
     }
-
-
-
-
-
 
 }
