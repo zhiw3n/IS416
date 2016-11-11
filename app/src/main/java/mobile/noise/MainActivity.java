@@ -29,23 +29,16 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.InetAddress;
 import java.net.MalformedURLException;
-import java.net.NetworkInterface;
-import java.net.SocketException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.Iterator;
 
 import mobile.noise.mobile.noise.sensorservices.AccelerometerEventService;
 import mobile.noise.mobile.noise.sensorservices.AndroidCameraMotionService;
-import mobile.noise.mobile.noise.sensorservices.CustomOnItemSelectedListener;
 import mobile.noise.mobile.noise.sensorservices.GetLocationTask;
 import mobile.noise.mobile.noise.sensorservices.LightEventService;
 import mobile.noise.mobile.noise.sensorservices.NoiseEventService;
@@ -251,10 +244,10 @@ public class MainActivity extends AppCompatActivity {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
         builder.setSmallIcon(R.mipmap.ic_launcher);
         builder.setContentTitle("Notification!");
-        builder.setContentText("Potential Movement After Hours. Please Click On Notification");
-        Intent intent = new Intent(this, NotificationPage.class);
+        builder.setContentText("Potential Movement After Hours. Click for more.");
+        Intent intent = new Intent(this, NotificationInfoActivity.class);
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
-        stackBuilder.addParentStack(NotificationPage.class);
+        stackBuilder.addParentStack(NotificationInfoActivity.class);
         stackBuilder.addNextIntent(intent);
         PendingIntent pendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
         builder.setContentIntent(pendingIntent);

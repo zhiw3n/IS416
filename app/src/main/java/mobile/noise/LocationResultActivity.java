@@ -21,10 +21,10 @@ public class LocationResultActivity extends AppCompatActivity {
         v.setText(b.getString("Location"));
 
         v = (TextView) findViewById(R.id.brightnessText);
-        v.setText("Current brightness: " + b.getString("LightGroup") + " (" + b.getString("LightLevel") + ")");
+        v.setText("Brightness now: " + b.getString("LightGroup") + " (" + b.getString("LightLevel") + ")");
 
         v = (TextView) findViewById(R.id.noiseText);
-        v.setText("Current noise: " + b.getString("NoiseGroup") + " (" + b.getString("NoiseLevel") + ")");
+        v.setText("Noise now: " + b.getString("NoiseGroup") + " (" + b.getString("NoiseLevel") + ")");
 
         double[] lightGraphPoints = b.getDoubleArray("lightGraphPoints");
         GraphView graph = (GraphView) findViewById(R.id.brightnessGraph);

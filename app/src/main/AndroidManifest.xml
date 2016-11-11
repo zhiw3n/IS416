@@ -4,14 +4,14 @@
 
     <uses-sdk android:minSdkVersion="9" />
 
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.FLASHLIGHT"/>
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <uses-feature
         android:name="android.hardware.camera2.flash"
@@ -52,7 +52,8 @@
 
         <activity
             android:name=".MainActivity"
-            android:label="SensorDyne">
+            android:label="SensorDyne"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -64,27 +65,35 @@
 
         <activity
             android:name=".InfoActivity"
-            android:label="About SensorDyne" />
+            android:label="About SensorDyne"
+            android:screenOrientation="portrait" />
 
         <activity
             android:name=".SettingsActivity"
-            android:label="Settings" />
+            android:label="Settings"
+            android:screenOrientation="portrait" />
 
         <activity
             android:name=".BestLocationActivity"
-            android:label="Best Study Location" />
+            android:label="Best Study Location"
+            android:screenOrientation="portrait" />
 
         <activity
             android:name=".LoadingBestLocationActivity"
-            android:label="Loading"/>
+            android:label="Loading..."
+            android:screenOrientation="portrait" />
 
         <activity
             android:name=".LocationResultActivity"
-            android:label="Result Details"/>
+            android:label="Result Details"
+            android:screenOrientation="portrait" />
 
         <activity android:name=".Notification" />
 
-        <activity android:name=".NotificationPage">
+        <activity
+            android:name=".NotificationInfoActivity"
+            android:label="Notification Details"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
