@@ -57,6 +57,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/list_paragraph_margin">
 
+        <!--
         <ImageButton
             android:layout_width="0dp"
             android:layout_height="100dp"
@@ -73,6 +74,7 @@
             android:layout_height="match_parent"
             android:background="@android:color/black"
             />
+        -->
 
         <ImageButton
             android:layout_width="0dp"
@@ -120,6 +122,7 @@
             />
     </TableRow>
 
+    <!--
     <TableRow
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -134,4 +137,5 @@
             android:spinnerMode="dropdown"
             android:layout_weight="1" />
     </TableRow>
+    -->
 </TableLayout>

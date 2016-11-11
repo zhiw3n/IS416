@@ -1,13 +1,17 @@
 package mobile.noise;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -34,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
             ((Button) findViewById(R.id.startBtn)).setText("Stop Service");
         }
 
-        addListenerOnSpinnerItemSelection();
+        // addListenerOnSpinnerItemSelection();
 
         findViewById(R.id.startBtn).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,7 +69,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void goToRanking(View v) {
-        startActivity(new Intent(MainActivity.this, LoadingBestLocationActivity.class));
+        ConnectivityManager cm =
+                (ConnectivityManager)this.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+
+        if (activeNetwork != null) {
+            startActivity(new Intent(MainActivity.this, LoadingBestLocationActivity.class));
+        } else {
+            Toast.makeText(this, "This function is only available with an active network connection.", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void goToSettings(View v) {
@@ -167,8 +179,10 @@ public class MainActivity extends AppCompatActivity {
         Log.e("MAIN", sensorOn.toString());
     }
 
+    /*
     public void addListenerOnSpinnerItemSelection() {
         spinner1 = (Spinner) findViewById(R.id.spinner1);
         spinner1.setOnItemSelectedListener(new CustomOnItemSelectedListener());
     }
+    */
 }

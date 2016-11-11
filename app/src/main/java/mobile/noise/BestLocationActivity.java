@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 public class BestLocationActivity extends AppCompatActivity {
@@ -29,15 +30,35 @@ public class BestLocationActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
 
-        TextView v = (TextView) findViewById(R.id.ranked1Text);
-        v.setText(room1Bundle.getString("Location"));
+        try {
+            TextView v = (TextView) findViewById(R.id.ranked1Text);
+            v.setText(room1Bundle.getString("Location"));
 
-        v = (TextView) findViewById(R.id.ranked2Text);
-        v.setText(room2Bundle.getString("Location"));
+            v = (TextView) findViewById(R.id.ranked2Text);
+            v.setText(room2Bundle.getString("Location"));
 
 
-        v = (TextView) findViewById(R.id.ranked3Text);
-        v.setText(room3Bundle.getString("Location"));
+            v = (TextView) findViewById(R.id.ranked3Text);
+            v.setText(room3Bundle.getString("Location"));
+        } catch(Exception e) {
+            e.printStackTrace();
+            Log.e("BestLocationActivity", "Less than 3 rooms found!");
+
+            if (room1Bundle == null) {
+                ImageButton b = (ImageButton) findViewById(R.id.ranked1Btn);
+                b.setEnabled(false);
+            }
+
+            if (room2Bundle == null) {
+                ImageButton b = (ImageButton) findViewById(R.id.ranked2Btn);
+                b.setEnabled(false);
+            }
+
+            if (room3Bundle == null) {
+                ImageButton b = (ImageButton) findViewById(R.id.ranked3Btn);
+                b.setEnabled(false);
+            }
+        }
 
     }
 
