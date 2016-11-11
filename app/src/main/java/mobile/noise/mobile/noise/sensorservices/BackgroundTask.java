@@ -8,7 +8,6 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -19,19 +18,21 @@ import java.net.URL;
 import java.net.URLEncoder;
 
 /**
- * Created by prabeesh on 7/14/2015.
+ * Created by WenJie on 10/15/2016.
  */
 
-public class BackgroundTask extends AsyncTask<String,Void,String> {
-  AlertDialog alertDialog;
+public class BackgroundTask extends AsyncTask<String, Void, String> {
+    AlertDialog alertDialog;
     Context ctx;
-    BackgroundTask(Context ctx)
-    {
-      this.ctx =ctx;
+
+    BackgroundTask(Context ctx) {
+        this.ctx = ctx;
     }
+
     private String JSON_STRING;
     public String answer;
     public static JSONObject jsonObj;
+
     @Override
     protected String doInBackground(String... params) {
         String addNoise_url = "https://processing-angeliad.rhcloud.com/addNoise.php";
@@ -43,26 +44,25 @@ public class BackgroundTask extends AsyncTask<String,Void,String> {
 
         String recordCamera_url = "https://processing-angeliad.rhcloud.com/addCamera.php";
         String method = params[0];
-        if(method.equals("recordNoise"))
-        {
+        if (method.equals("recordNoise")) {
             String time = params[1];
             String result = params[2];
             String location = params[3];
 
             try {
-              //  http://10.0.2.2:8080/practice/addNoise.php;
+                //  http://10.0.2.2:8080/practice/addNoise.php;
                 URL url = new URL(addNoise_url);
 
-                HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
                 httpURLConnection.setRequestMethod("POST");
                 httpURLConnection.setDoOutput(true);
                 httpURLConnection.setDoInput(true);
                 OutputStream outputStream = httpURLConnection.getOutputStream();
-                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream,"UTF-8"));
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
 
-                String data = URLEncoder.encode("time","UTF-8")+"="+URLEncoder.encode(time,"UTF-8")+"&"+
-                        URLEncoder.encode("result","UTF-8")+"="+URLEncoder.encode(result,"UTF-8")+"&"+
-                        URLEncoder.encode("location","UTF-8")+"="+URLEncoder.encode(location,"UTF-8");
+                String data = URLEncoder.encode("time", "UTF-8") + "=" + URLEncoder.encode(time, "UTF-8") + "&" +
+                        URLEncoder.encode("result", "UTF-8") + "=" + URLEncoder.encode(result, "UTF-8") + "&" +
+                        URLEncoder.encode("location", "UTF-8") + "=" + URLEncoder.encode(location, "UTF-8");
 
                 bufferedWriter.write(data);
                 bufferedWriter.flush();
@@ -73,32 +73,28 @@ public class BackgroundTask extends AsyncTask<String,Void,String> {
                 IS.close();
 
                 httpURLConnection.disconnect();
-              return "Sensor Values Inserted";
-            } catch (IOException e) {
+                return "Sensor Values Inserted";
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 
-        }
-
-
-        else if(method.equals("recordLight"))
-        {
+        } else if (method.equals("recordLight")) {
             String time = params[1];
             String result = params[2];
             String location = params[3];
 
             try {
                 URL url = new URL(addLight_url);
-                HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
                 httpURLConnection.setRequestMethod("POST");
                 httpURLConnection.setDoOutput(true);
                 httpURLConnection.setDoInput(true);
                 OutputStream outputStream = httpURLConnection.getOutputStream();
-                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream,"UTF-8"));
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
 
-                String data = URLEncoder.encode("time","UTF-8")+"="+URLEncoder.encode(time,"UTF-8")+"&"+
-                        URLEncoder.encode("result","UTF-8")+"="+URLEncoder.encode(result,"UTF-8")+"&"+
-                        URLEncoder.encode("location","UTF-8")+"="+URLEncoder.encode(location,"UTF-8");
+                String data = URLEncoder.encode("time", "UTF-8") + "=" + URLEncoder.encode(time, "UTF-8") + "&" +
+                        URLEncoder.encode("result", "UTF-8") + "=" + URLEncoder.encode(result, "UTF-8") + "&" +
+                        URLEncoder.encode("location", "UTF-8") + "=" + URLEncoder.encode(location, "UTF-8");
 
                 bufferedWriter.write(data);
                 bufferedWriter.flush();
@@ -108,29 +104,27 @@ public class BackgroundTask extends AsyncTask<String,Void,String> {
                 IS.close();
                 httpURLConnection.disconnect();
                 return "Sensor Values Inserted";
-            } catch (IOException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 
-        }
-        else if(method.equals("recordProximity"))
-        {
+        } else if (method.equals("recordProximity")) {
             String time = params[1];
             String result = params[2];
             String location = params[3];
 
             try {
                 URL url = new URL(addProximity_url);
-                HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
                 httpURLConnection.setRequestMethod("POST");
                 httpURLConnection.setDoOutput(true);
                 httpURLConnection.setDoInput(true);
                 OutputStream outputStream = httpURLConnection.getOutputStream();
-                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream,"UTF-8"));
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
 
-                String data = URLEncoder.encode("time","UTF-8")+"="+URLEncoder.encode(time,"UTF-8")+"&"+
-                        URLEncoder.encode("result","UTF-8")+"="+URLEncoder.encode(result,"UTF-8")+"&"+
-                        URLEncoder.encode("location","UTF-8")+"="+URLEncoder.encode(location,"UTF-8");
+                String data = URLEncoder.encode("time", "UTF-8") + "=" + URLEncoder.encode(time, "UTF-8") + "&" +
+                        URLEncoder.encode("result", "UTF-8") + "=" + URLEncoder.encode(result, "UTF-8") + "&" +
+                        URLEncoder.encode("location", "UTF-8") + "=" + URLEncoder.encode(location, "UTF-8");
 
                 bufferedWriter.write(data);
                 bufferedWriter.flush();
@@ -142,80 +136,74 @@ public class BackgroundTask extends AsyncTask<String,Void,String> {
 
                 httpURLConnection.disconnect();
                 return "Sensor Values Inserted";
-            } catch (IOException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
-       else if(method.equals("recordAccelerometer"))
-       {
-           String time = params[1];
-           String result = params[2];
-           String location = params[3];
+        } else if (method.equals("recordAccelerometer")) {
+            String time = params[1];
+            String result = params[2];
+            String location = params[3];
 
-           try {
-               URL url = new URL(addAccelerometer_url);
-               HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
-               httpURLConnection.setRequestMethod("POST");
-               httpURLConnection.setDoOutput(true);
-               httpURLConnection.setDoInput(true);
-               OutputStream outputStream = httpURLConnection.getOutputStream();
-               BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream,"UTF-8"));
+            try {
+                URL url = new URL(addAccelerometer_url);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoOutput(true);
+                httpURLConnection.setDoInput(true);
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
 
-               String data = URLEncoder.encode("time","UTF-8")+"="+URLEncoder.encode(time,"UTF-8")+"&"+
-                       URLEncoder.encode("result","UTF-8")+"="+URLEncoder.encode(result,"UTF-8")+"&"+
-                       URLEncoder.encode("location","UTF-8")+"="+URLEncoder.encode(location,"UTF-8");
+                String data = URLEncoder.encode("time", "UTF-8") + "=" + URLEncoder.encode(time, "UTF-8") + "&" +
+                        URLEncoder.encode("result", "UTF-8") + "=" + URLEncoder.encode(result, "UTF-8") + "&" +
+                        URLEncoder.encode("location", "UTF-8") + "=" + URLEncoder.encode(location, "UTF-8");
 
-               bufferedWriter.write(data);
-               bufferedWriter.flush();
-               bufferedWriter.close();
-               outputStream.close();
+                bufferedWriter.write(data);
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
 
-               InputStream IS = httpURLConnection.getInputStream();
-               IS.close();
+                InputStream IS = httpURLConnection.getInputStream();
+                IS.close();
 
-               httpURLConnection.disconnect();
-               return "Sensor Values Inserted";
-           } catch (IOException e) {
-               e.printStackTrace();
-           }
+                httpURLConnection.disconnect();
+                return "Sensor Values Inserted";
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
-       }
-       else if(method.equals("recordCamera"))
-       {
-           String time = params[1];
-           String result = params[2];
-           String location = params[3];
+        } else if (method.equals("recordCamera")) {
+            String time = params[1];
+            String result = params[2];
+            String location = params[3];
 
-           try {
-               URL url = new URL(recordCamera_url);
-               HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
-               httpURLConnection.setRequestMethod("POST");
-               httpURLConnection.setDoOutput(true);
-               httpURLConnection.setDoInput(true);
-               OutputStream outputStream = httpURLConnection.getOutputStream();
-               BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream,"UTF-8"));
+            try {
+                URL url = new URL(recordCamera_url);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoOutput(true);
+                httpURLConnection.setDoInput(true);
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
 
-               String data = URLEncoder.encode("time","UTF-8")+"="+URLEncoder.encode(time,"UTF-8")+"&"+
-                       URLEncoder.encode("result","UTF-8")+"="+URLEncoder.encode(result,"UTF-8")+"&"+
-                       URLEncoder.encode("location","UTF-8")+"="+URLEncoder.encode(location,"UTF-8");
+                String data = URLEncoder.encode("time", "UTF-8") + "=" + URLEncoder.encode(time, "UTF-8") + "&" +
+                        URLEncoder.encode("result", "UTF-8") + "=" + URLEncoder.encode(result, "UTF-8") + "&" +
+                        URLEncoder.encode("location", "UTF-8") + "=" + URLEncoder.encode(location, "UTF-8");
 
-               bufferedWriter.write(data);
-               bufferedWriter.flush();
-               bufferedWriter.close();
-               outputStream.close();
+                bufferedWriter.write(data);
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
 
-               InputStream IS = httpURLConnection.getInputStream();
-               IS.close();
+                InputStream IS = httpURLConnection.getInputStream();
+                IS.close();
 
-               httpURLConnection.disconnect();
-               return "Sensor Values Inserted";
-           } catch (IOException e) {
-               e.printStackTrace();
-           }
+                httpURLConnection.disconnect();
+                return "Sensor Values Inserted";
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
-       }
-       else if(method.equals("getTopRoom"))
-        {
+        } else if (method.equals("getTopRoom")) {
 
             try {
                 URL url = new URL("https://processing-angeliad.rhcloud.com/getTopRoom.php");
@@ -229,16 +217,16 @@ public class BackgroundTask extends AsyncTask<String,Void,String> {
                 bufferedReader.close();
                 inputStream.close();
                 httpURLConnection.disconnect();
-try {
-     jsonObj = new JSONObject(stringBuilder.toString());
-}catch(Exception e){
+                try {
+                    jsonObj = new JSONObject(stringBuilder.toString());
+                } catch (Exception e) {
 
-}
+                }
                 return stringBuilder.toString().trim();
 
             } catch (MalformedURLException e) {
                 e.printStackTrace();
-            } catch (IOException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 

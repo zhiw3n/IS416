@@ -1,10 +1,18 @@
 package mobile.noise;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.hardware.Camera;
+import android.hardware.camera2.CameraCaptureSession;
+import android.hardware.camera2.CameraDevice;
+import android.hardware.camera2.CameraManager;
+import android.hardware.camera2.CaptureRequest;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
@@ -13,6 +21,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -37,6 +46,7 @@ import java.util.Iterator;
 import mobile.noise.mobile.noise.sensorservices.AccelerometerEventService;
 import mobile.noise.mobile.noise.sensorservices.AndroidCameraMotionService;
 import mobile.noise.mobile.noise.sensorservices.CustomOnItemSelectedListener;
+import mobile.noise.mobile.noise.sensorservices.GetLocationTask;
 import mobile.noise.mobile.noise.sensorservices.LightEventService;
 import mobile.noise.mobile.noise.sensorservices.NoiseEventService;
 import mobile.noise.mobile.noise.sensorservices.ProximityEventService;
@@ -49,12 +59,6 @@ public class MainActivity extends AppCompatActivity {
     public static boolean ifOutput;
     private TextView textView;
     public static String thiefArray;
-
-    private final String USER_AGENT = "Mozilla/5.0";
-    public static String ip;
-    public static String macAddress;
-    public static String pointLocation;
-
 
     private Camera camera1;
     private Camera.Parameters parameters;
@@ -81,12 +85,12 @@ public class MainActivity extends AppCompatActivity {
 
         // addListenerOnSpinnerItemSelection();
 
-        new getPointAddress().execute();
+        new GetLocationTask().execute();
 
         new Thread(new Runnable() {
             @Override
             public void run() {
-                while(true){
+                while (true) {
                     try {
                         Thread.sleep(20000);
                     } catch (InterruptedException e) {
@@ -127,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void goToRanking(View v) {
         ConnectivityManager cm =
-                (ConnectivityManager)this.getSystemService(Context.CONNECTIVITY_SERVICE);
+                (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
 
         if (activeNetwork != null) {
@@ -298,18 +302,19 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String result) {
-            super.onPostExecute(result);;
+            super.onPostExecute(result);
+            ;
             if (result != null) {
                 try {
                     JSONArray jArray = new JSONArray(result);
                     ArrayList<String> newArray = new ArrayList();
                     for (int i = 0; i < jArray.length(); i++) {
                         JSONObject json_data = jArray.getJSONObject(i);
-                        if(!json_data.getString("location").isEmpty()) {
-                        thiefArray = "There is a movement at "  + json_data.getString("location")
-                                + " at this time " + json_data.getString("time") ;
-                                showNotification();
-                      }
+                        if (!json_data.getString("location").isEmpty()) {
+                            thiefArray = "There is a movement at " + json_data.getString("location")
+                                    + " at this time " + json_data.getString("time");
+                            showNotification();
+                        }
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -318,15 +323,15 @@ public class MainActivity extends AppCompatActivity {
 
                 //much more work needs to be done here
                 Thread.currentThread().setPriority(Thread.MAX_PRIORITY);
-                camera1 = Camera.open() ;
-               parameters = camera1.getParameters();
+                camera1 = Camera.open();
+                parameters = camera1.getParameters();
 
-                if(isFlashLightOn){
+                if (isFlashLightOn) {
                     parameters.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
                     camera1.setParameters(parameters);
                     camera1.stopPreview();
                     isFlashLightOn = false;
-                }else{
+                } else {
                     parameters.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
                     camera1.setParameters(parameters);
                     camera1.startPreview();
@@ -342,205 +347,4 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    //returns the location
-    class getPointAddress extends AsyncTask<String, String, String> {
-        String json_url;
-
-        @Override
-        protected String doInBackground(String... params) {
-
-                try {
-                    for (Enumeration<NetworkInterface> en = NetworkInterface
-                            .getNetworkInterfaces(); en.hasMoreElements(); ) {
-                        NetworkInterface intf = (NetworkInterface) en.nextElement();
-                        for (Enumeration<InetAddress> enumIpAddr = intf
-                                .getInetAddresses(); enumIpAddr.hasMoreElements(); ) {
-                            InetAddress inetAddress = enumIpAddr.nextElement();
-                            if (!inetAddress.isLoopbackAddress()) {
-                                String ipaddress = inetAddress.getHostAddress().toString();
-                                Log.i("ip", ipaddress);
-                                ip = ipaddress;
-                            }
-                        }
-                    }
-                } catch (SocketException ex) {
-                    //  Log.e(TAG, "Exception in Get IP Address: " + ex.toString());
-                }
-                try {
-                    String url = "http://hestia/analytics_sandbox/smulabs/index.php/login/signin_2";
-                    URL obj = new URL(url);
-                    HttpURLConnection con = null;
-                    BufferedReader reader = null;
-                    con = (HttpURLConnection) obj.openConnection();
-
-                    //add reuqest header
-                    con.setRequestMethod("POST");
-                    con.setRequestProperty("User-Agent", USER_AGENT);
-                    con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
-
-                    String urlParameters = "username=group6&password=group654321";
-
-                    // Send post request
-                    con.setDoOutput(true);
-                    DataOutputStream wr = new DataOutputStream(con.getOutputStream());
-                    wr.writeBytes(urlParameters);
-                    wr.flush();
-                    wr.close();
-
-                    int responseCode = con.getResponseCode();
-//                System.out.println("\nSending 'POST' request to URL : " + url);
-//                System.out.println("Post parameters : " + urlParameters);
-//                System.out.println("Response Code : " + responseCode);
-
-                    BufferedReader in = new BufferedReader(
-                            new InputStreamReader(con.getInputStream()));
-                    String inputLine;
-                    StringBuffer response = new StringBuffer();
-
-                    while ((inputLine = in.readLine()) != null) {
-                        response.append(inputLine);
-                    }
-                    in.close();
-
-                    //print result
-//                System.out.println(response.toString());
-                    Log.i("response", response.toString());
-                } catch (Exception e) {
-
-                }
-
-                try {
-                    String url = "http://hestia/analytics_sandbox/smulabs/index.php/get_mac_from_ip";
-                    URL obj = new URL(url);
-                    HttpURLConnection con = null;
-                    BufferedReader reader = null;
-                    con = (HttpURLConnection) obj.openConnection();
-
-
-                    //add reuqest header
-                    con.setRequestMethod("POST");
-                    con.setRequestProperty("User-Agent", USER_AGENT);
-                    con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
-
-                    String urlParameters = "ip=10.124.131.91";
-
-                    // Send post request
-                    con.setDoOutput(true);
-                    DataOutputStream wr = new DataOutputStream(con.getOutputStream());
-                    wr.writeBytes(urlParameters);
-                    wr.flush();
-                    wr.close();
-
-                    int responseCode = con.getResponseCode();
-//                System.out.println("\nSending 'POST' request to URL : " + url);
-//                System.out.println("Post parameters : " + urlParameters);
-//                System.out.println("Response Code : " + responseCode);
-
-                    BufferedReader in = new BufferedReader(
-                            new InputStreamReader(con.getInputStream()));
-                    String inputLine;
-                    StringBuffer response = new StringBuffer();
-
-                    while ((inputLine = in.readLine()) != null) {
-                        response.append(inputLine);
-                    }
-                    in.close();
-                    //print result
-//                System.out.println(response.toString());
-                    String[] tempNames = new String(response).split(",");
-//                System.out.println(tempNames[0]);
-                    macAddress = tempNames[0].substring(8, tempNames[0].length() - 1);
-                 //   Log.i("macAddress", macAddress);
-                } catch (Exception e) {
-
-                }
-                try {
-                    String url = "http://hestia/analytics_sandbox/smulabs/index.php/Point_location/getUserLocationByMAC";
-                    URL obj = new URL(url);
-                    HttpURLConnection con = null;
-                    BufferedReader reader = null;
-                    con = (HttpURLConnection) obj.openConnection();
-
-                    //add reuqest header
-                    con.setRequestMethod("POST");
-                    con.setRequestProperty("User-Agent", USER_AGENT);
-                    con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
-
-                    String urlParameters = "encoded_mac=" + macAddress;
-
-                    // Send post request
-                    con.setDoOutput(true);
-                    DataOutputStream wr = new DataOutputStream(con.getOutputStream());
-                    wr.writeBytes(urlParameters);
-                    wr.flush();
-                    wr.close();
-
-                    int responseCode = con.getResponseCode();
-//                System.out.println("\nSending 'POST' request to URL : " + url);
-//                System.out.println("Post parameters : " + urlParameters);
-//                System.out.println("Response Code : " + responseCode);
-
-                    BufferedReader in = new BufferedReader(
-                            new InputStreamReader(con.getInputStream()));
-                    String inputLine;
-                    StringBuffer response = new StringBuffer();
-
-                    while ((inputLine = in.readLine()) != null) {
-                        response.append(inputLine);
-                    }
-                    in.close();
-
-                    return response.toString().trim();
-
-                } catch (Exception e) {
-
-                }
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-
-            if (result != null) {
-                try{
-                    JSONObject j = new JSONObject(result);
-               Iterator<String> keys= j.keys();
-                    String lastKey = "";
-                    while (keys.hasNext())
-                    {
-                        String Key = keys.next();
-                        if(Key.compareTo(lastKey) >= 0){
-                            lastKey=Key;
-                        }
-                    }
-                    Log.i("LAST KEY", lastKey);
-
-                    JSONArray z = j.getJSONArray(lastKey);
-                    for(int a = 0 ; a < z.length(); a++){
-                        JSONObject f = z.getJSONObject(a);
-                        Log.i("time", f.get("time").toString());
-                        Log.i("location", f.get("mapped_location").toString());
-                    }
-                }
-                catch(Exception e){
-                }
-                try {
-                    JSONArray jArray = new JSONArray(result);
-                    ArrayList<String> newArray = new ArrayList();
-                    JSONObject lastLocation = (JSONObject) jArray.get(jArray.length()-1);
-                    pointLocation = lastLocation.toString();
-                    Log.i("LAST", lastLocation.toString());
-                }
-                catch (Exception e){
-
-                }
-
-            } else{
-                //if results = null;
-                pointLocation = CustomOnItemSelectedListener.globalSpinnerValue;
-            }
-        }
-
-    }
 }
