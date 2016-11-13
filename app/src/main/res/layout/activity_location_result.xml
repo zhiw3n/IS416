@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/activity_location_result"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:orientation="vertical"
+        tools:context="mobile.noise.LocationResultActivity">
+
+        <TextView
+            android:text="Location"
+            style="@style/HeadingTextViewStyle"
+            />
+
+        <TextView
+            android:id="@+id/roomText"
+            android:text="GSR 123"
+            style="@style/NormalTextViewStyle"
+            />
+
+        <TextView
+            android:text="Brightness"
+            style="@style/HeadingTextViewStyle"
+            />
+        <com.jjoe64.graphview.GraphView
+            android:layout_width="match_parent"
+            android:layout_height="200dip"
+            android:id="@+id/brightnessGraph" />
+
+        <TextView
+            android:id="@+id/brightnessText"
+            android:text="Current brightness: Dark (0 Lux)"
+            style="@style/NormalTextViewStyle"
+            />
+
+        <TextView
+            android:text="Noise"
+            style="@style/HeadingTextViewStyle"
+            />
+
+        <com.jjoe64.graphview.GraphView
+            android:layout_width="match_parent"
+            android:layout_height="200dip"
+            android:id="@+id/noiseGraph" />
+
+        <TextView
+            android:id="@+id/noiseText"
+            android:text="Current noise: Quiet (0 dB)"
+            style="@style/NormalTextViewStyle"
+            />
+
+    </LinearLayout>
+</ScrollView>

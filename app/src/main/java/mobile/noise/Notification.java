@@ -10,8 +10,6 @@ import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
-import android.webkit.WebView;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,9 +27,6 @@ import java.net.URL;
 
 
 public class Notification extends Activity {
-    EditText ET_NAME, ET_USER_NAME, ET_USER_PASS;
-    String name, user_name, user_pass;
-    WebView view;
     private String JSON_STRING;
 
     @Override
@@ -46,9 +41,9 @@ public class Notification extends Activity {
         builder.setSmallIcon(R.mipmap.ic_launcher);
         builder.setContentTitle("Notification");
         builder.setContentText("Noisy Area Detected!");
-        Intent intent = new Intent(this, NotificationPage.class);
+        Intent intent = new Intent(this, NotificationInfoActivity.class);
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
-        stackBuilder.addParentStack(NotificationPage.class);
+        stackBuilder.addParentStack(NotificationInfoActivity.class);
         stackBuilder.addNextIntent(intent);
         PendingIntent pendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
         builder.setContentIntent(pendingIntent);
@@ -58,6 +53,7 @@ public class Notification extends Activity {
 
     class BackGroundTask extends AsyncTask<Void, Void, String> {
         String json_url;
+
         @Override
         protected String doInBackground(Void... voids) {
             try {
@@ -82,9 +78,11 @@ public class Notification extends Activity {
             }
             return null;
         }
+
         protected void onProgressUpdate(Void... values) {
             super.onProgressUpdate(values);
         }
+
         @Override
         protected void onPostExecute(String result) {
             //  int AggregatedResult = Integer.parseInt(result);
@@ -94,26 +92,24 @@ public class Notification extends Activity {
 
             try {
                 Thread.sleep(10000);
-            } catch(Exception e ){
-
+            } catch (Exception e) {
+                e.printStackTrace();
             }
+
             showNotification(result);
+
             if (result != null) {
-                try
-                {
+                try {
                     String returnString = "";
                     JSONArray jArray = new JSONArray(result);
-                    for(int i=0;i<jArray.length();i++)
-                    {
+                    for (int i = 0; i < jArray.length(); i++) {
                         JSONObject json_data = jArray.getJSONObject(i);
-                        Log.i("log_tag","Result:"+json_data.getString("Result"));
+                        Log.i("log_tag", "Result:" + json_data.getString("Result"));
                         returnString = json_data.getString("Result");
                     }
-                }
-                catch(JSONException e)
-                {
-                    Log.e("log_tag", "Error parsing data "+e.toString());
-                    Toast.makeText(getApplicationContext(), "Error Parsing",  Toast.LENGTH_LONG).show();
+                } catch (JSONException e) {
+                    Log.e("log_tag", "Error parsing data " + e.toString());
+                    Toast.makeText(getApplicationContext(), "Error Parsing", Toast.LENGTH_LONG).show();
                 }
             }
         }

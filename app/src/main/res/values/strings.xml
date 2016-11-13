@@ -16,4 +16,14 @@
         <item>20 secs</item>
         <item>30 secs</item>
     </string-array>
+
+    <string-array name="time_array">
+        <item>1 second</item>
+        <item>5 seconds</item>
+        <item>10 seconds</item>
+        <item>30 seconds</item>
+        <item>1 minute</item>
+        <item>5 minutes</item>
+        <item>10 minutes</item>
+    </string-array>
 </resources>

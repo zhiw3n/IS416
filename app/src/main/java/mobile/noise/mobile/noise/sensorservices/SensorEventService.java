@@ -40,12 +40,7 @@ public abstract class SensorEventService extends Service implements SensorEventL
     private String method;
     private long lastTimestamp;
     private static final double DELAY = 3e9;
-
     private String JSON_STRING;
-    public String answer;
-    public boolean isRunning;
-    public static boolean ifOutput;
-    private TextView textView;
 
     abstract public int getSensorType();
 
@@ -63,6 +58,7 @@ public abstract class SensorEventService extends Service implements SensorEventL
         Log.i(this.toString(), "onStartCommand()");
         return Service.START_STICKY;
     }
+
     @Override
     public IBinder onBind(Intent arg0) {
         return null;
@@ -71,7 +67,7 @@ public abstract class SensorEventService extends Service implements SensorEventL
     @Override
     public void onDestroy() {
         mSensorManager.unregisterListener(this);
-          Log.i(this.toString(), "onDestroy()");
+        Log.i(this.toString(), "onDestroy()");
     }
 
     @Override
@@ -82,50 +78,32 @@ public abstract class SensorEventService extends Service implements SensorEventL
             lastTimestamp = sensorEvent.timestamp;
             Log.i(this.toString(), "onSensorChanged() with value " + values[0]);
 
-            String finalResult = "" + values[0];
-
             DateFormat df = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
-            Date dateobj = new Date();
-           // Date currentDate = new Date(System.currentTimeMillis() - 3600 * 1000);
-            Date currentDate = new Date();
-            String time = df.format(currentDate).toString();
-            recordInput(time, finalResult, CustomOnItemSelectedListener.globalSpinnerValue);
-       }
+            String time = df.format(new Date()).toString();
+            recordInput(time, Float.toString(values[0]), GetLocationTask.location);
+        }
     }
 
-    public void recordInput(String time, String result, String location )
-    {
-        mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-        sensor = mSensorManager.getDefaultSensor(this.getSensorType());
-        String sensorName = sensor.toString();
-
-        if(sensorName.contains("Light")){
+    public void recordInput(String time, String result, String location) {
+        if (getSensorType() == Sensor.TYPE_LIGHT) {
             method = "recordLight";
         }
-        if(sensorName.contains("Proximity")){
+        if (getSensorType() == Sensor.TYPE_PROXIMITY) {
             method = "recordProximity";
         }
-        if(sensorName.contains("Accel")){
+        if (getSensorType() == Sensor.TYPE_ACCELEROMETER) {
             method = "recordAccelerometer";
         }
 
-        if(sensorName.contains("Camera")){
-            method = "recordCamera";
-        }
-
         BackgroundTask backgroundTask = new BackgroundTask(this);
-//        if(MainActivity.pointLocation == null ) {
-//            //just in case task takes too long
-//        //SMUSISL3SR3-4
-            backgroundTask.execute(method,time,result, location);
-//        } else {
-//            backgroundTask.execute(method, time, result, MainActivity.pointLocation);
-//        }
+        backgroundTask.execute(method, time, result, location);
     }
+
     @Override
     public void onAccuracyChanged(Sensor sensor, int i) {
         // Do nothing.
     }
+
     @Override
     public String toString() {
         return sensor.getName() + "Sensor Event Service";
@@ -167,7 +145,6 @@ public abstract class SensorEventService extends Service implements SensorEventL
                     e.printStackTrace();
                 }
 
-
             }
             return null;
         }
@@ -175,7 +152,6 @@ public abstract class SensorEventService extends Service implements SensorEventL
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            textView.setText(result);
             if (result != null) {
 
                 try {
@@ -191,9 +167,7 @@ public abstract class SensorEventService extends Service implements SensorEventL
                         Log.i("light group : ", json_data.getString("light"));
                         Log.i("score : ", json_data.getString("score"));
                         rank++;
-
                     }
-                    // showNotification(JSONArray jArray);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

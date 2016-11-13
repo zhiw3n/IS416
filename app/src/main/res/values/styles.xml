@@ -6,6 +6,81 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="android:textColorPrimary">@color/textColorPrimary</item>
+        <item name="android:textColorPrimaryInverse">@color/textColorPrimaryInverse</item>
+        <item name="android:textColorSecondary">@color/textColorSecondary</item>
+        <item name="android:textColorSecondaryInverse">@color/textColorSecondaryInverse</item>
+
+        <item name="android:colorBackground">@color/backgroundColor</item>
+
+        <item name="android:textAppearanceMedium">@style/MediumText</item>
+    </style>
+
+    <style name="MediumText" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">?android:textColorPrimary</item>
+    </style>
+
+    <style name="SwitchStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/list_element_margin</item>
+        <item name="android:layout_marginBottom">@dimen/list_element_margin</item>
+        <item name="android:checked">true</item>
+        <item name="android:layout_weight">0</item>
+        <item name="android:textAppearance">@style/MediumText</item>
+    </style>
+
+    <style name="HeadingTextViewStyle">
+        <item name="android:layout_weight">0</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/list_paragraph_margin</item>
+        <item name="android:layout_marginBottom">@dimen/list_element_margin</item>
+
+        <item name="android:textSize">22sp</item>
+        <item name="android:textColor">@color/colorPrimaryDarker</item>
+    </style>
+
+    <style name="NormalTextViewStyle">
+        <item name="android:layout_weight">0</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/list_element_margin</item>
+        <item name="android:layout_marginBottom">@dimen/list_element_margin</item>
+        <item name="android:textAppearance">@style/MediumText</item>
+    </style>
+
+    <style name="DetailTextViewStyle">
+        <item name="android:layout_weight">0</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">@dimen/list_element_margin</item>
+
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">?android:textColorSecondary</item>
+        <item name="android:textStyle">italic</item>
+    </style>
+
+    <style name="PlaceTextViewStyle">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:padding">@dimen/list_element_margin</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:gravity">center_vertical|right</item>
+        <item name="android:background">@color/colorAccent</item>
+        <item name="android:textColor">?android:textColorPrimaryInverse</item>
+    </style>
+
+    <style name="RoomTextViewStyle">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">4</item>
+        <item name="android:padding">@dimen/list_element_margin</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:gravity">center_vertical|left</item>
+        <item name="android:background">@color/colorPrimaryDark</item>
+        <item name="android:textColor">?android:textColorPrimaryInverse</item>
     </style>
 
 </resources>

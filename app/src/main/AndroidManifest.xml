@@ -1,27 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="mobile.noise">
+
     <uses-sdk android:minSdkVersion="9" />
+
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.FLASHLIGHT" />
-
-    <uses-feature android:name="android.hardware.camera.flash" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE">
-
-
-    </uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <uses-feature
-        android:name="android.hardware.camera2">
-
-    </uses-feature>
+        android:name="android.hardware.camera2.flash"
+        android:required="false" />
+    <uses-feature
+        android:name="android.hardware.camera2"
+        android:required="false" />
     <uses-feature
         android:name="android.hardware.camera"
         android:required="false" />
@@ -43,10 +40,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
-
         <service
             android:name=".mobile.noise.sensorservices.AndroidCameraMotionService"
             android:enabled="true"
@@ -55,9 +48,12 @@
         <service android:name=".mobile.noise.sensorservices.AccelerometerEventService" />
         <service android:name=".mobile.noise.sensorservices.LightEventService" />
         <service android:name=".mobile.noise.sensorservices.ProximityEventService" />
-        <service android:name=".mobile.noise.sensorservices.NoiseEventService"/>
+        <service android:name=".mobile.noise.sensorservices.NoiseEventService" />
 
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MainActivity"
+            android:label="SensorDyne"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -65,23 +61,45 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".FloorActivity" />
 
-        <activity android:name=".NotificationPage">
+        <activity
+            android:name=".InfoActivity"
+            android:label="About SensorDyne"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".SettingsActivity"
+            android:label="Settings"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".BestLocationActivity"
+            android:label="Best Study Location"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".LoadingBestLocationActivity"
+            android:label="Loading..."
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".LocationResultActivity"
+            android:label="Result Details"
+            android:screenOrientation="portrait" />
+
+        <activity android:name=".Notification" />
+
+        <activity
+            android:name=".NotificationInfoActivity"
+            android:label="Notification Details"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
-
-        <activity android:name=".FloorActivity"/>
-        <activity android:name=".InfoActivity"/>
-        <activity android:name=".SettingsActivity"/>
-        <activity android:name=".Notification"/>
-
-
-
     </application>
 
 </manifest>

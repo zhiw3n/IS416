@@ -12,6 +12,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import mobile.noise.MainActivity;
+
 public class NoiseEventService extends Service {
     private static double mEMA = 0.0;
     static final private double EMA_FILTER = 0.6;
@@ -20,7 +22,7 @@ public class NoiseEventService extends Service {
     private Spinner spinner1;
     MediaRecorder mRecorder;
     private String aggregatedResults;
-    private  String value;
+    private String value;
     private int Counter = 20;
 
     @Override
@@ -39,22 +41,21 @@ public class NoiseEventService extends Service {
         mRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
         mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
         mRecorder.setOutputFile("/dev/null");
-        try
-        {
+        try {
             mRecorder.prepare();
             Log.d("myTag", "CAT");
-        }catch (IOException ioe) {
+        } catch (IOException ioe) {
             Log.e("[Monkey]", "IOException: " +
                     Log.getStackTraceString(ioe));
 
-        }catch (SecurityException e) {
+        } catch (SecurityException e) {
             Log.e("[Monkey]", "SecurityException: " +
                     Log.getStackTraceString(e));
         }
-        try  {
+        try {
             mRecorder.start();
             Log.i("myTag", "ALIVE");
-        }catch (SecurityException e) {
+        } catch (SecurityException e) {
             Log.e("[Monkey]", "SecurityException: " +
                     Log.getStackTraceString(e));
         }
@@ -76,10 +77,14 @@ public class NoiseEventService extends Service {
                         double finalValue = Math.abs(20 * Math.log10(amplitutde));
                         String result = "" + amplitutde;
 
-
+<<<<<<< HEAD
                         String location = CustomOnItemSelectedListener.globalSpinnerValue;
-
                         String finalResult = "" + Double.toString(finalValue-10);
+=======
+                        String location = GetLocationTask.location;
+
+                        String finalResult = "" + Double.toString(finalValue - 10);
+>>>>>>> origin/master
 
                         if (finalResult.contains("In")) {
                             finalResult = "70";
@@ -109,17 +114,18 @@ public class NoiseEventService extends Service {
     }
     */
 
-    public double soundDb(double ampl){
-        return  20 * Math.log10(getAmplitudeEMA() / ampl);
+    public double soundDb(double ampl) {
+        return 20 * Math.log10(getAmplitudeEMA() / ampl);
     }
-    public void recordNoise(String time, String result, String location )
-    {
+
+    public void recordNoise(String time, String result, String location) {
         String method = "recordNoise";
         BackgroundTask backgroundTask = new BackgroundTask(this);
 //        if(MainActivity.pointLocation == null ) {
-            //just in case task takes too long
-            //SMUSISL3SR3-4
-            backgroundTask.execute(method,time,result, location);
+        //just in case task takes too long
+        //SMUSISL3SR3-4
+
+        backgroundTask.execute(method, time, result, location);
 //        } else {
 //        //    backgroundTask.execute(method, time, result, MainActivity.pointLocation);
 //        }
@@ -127,19 +133,22 @@ public class NoiseEventService extends Service {
 
     public double getAmplitude() {
         if (mRecorder != null)
-            return  (mRecorder.getMaxAmplitude());
+            return (mRecorder.getMaxAmplitude());
         else
             return 0;
     }
+
     public double getAmplitudeEMA() {
-        double amp =  getAmplitude();
+        double amp = getAmplitude();
         mEMA = EMA_FILTER * amp + (1.0 - EMA_FILTER) * mEMA;
         return mEMA;
     }
+
     @Override
     public IBinder onBind(Intent arg0) {
         return null;
     }
+
     @Override
     public void onDestroy() {
         Log.i(TAG, "Service onDestroy!");
