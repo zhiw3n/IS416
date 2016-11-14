@@ -69,9 +69,12 @@ public class AndroidCameraMotionService extends Service {
                         recordMovement(time, "1", location);
                     }
 <<<<<<< HEAD
+<<<<<<< HEAD
                 } else {
                     //Commented to prevent flooding of log cat
                     //   Log.i(TAG, "No movement with mDiff1: " + countNonZero(mDiff1) + " | mDiff2: " + countNonZero(mDiff2) + " | mResult: " + countNonZero(mResult));
+=======
+>>>>>>> origin/master
 =======
 >>>>>>> origin/master
                 }

@@ -28,6 +28,9 @@ public class BackgroundTask extends AsyncTask<String,Void,String> {
 
 public class BackgroundTask extends AsyncTask<String, Void, String> {
     AlertDialog alertDialog;
+<<<<<<< HEAD
+>>>>>>> origin/master
+=======
 >>>>>>> origin/master
     Context ctx;
 
@@ -56,8 +59,15 @@ public class BackgroundTask extends AsyncTask<String, Void, String> {
 
             try {
 <<<<<<< HEAD
+<<<<<<< HEAD
                 URL url = new URL(addNoise_url);
                 HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
+=======
+                //  http://10.0.2.2:8080/practice/addNoise.php;
+                URL url = new URL(addNoise_url);
+
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+>>>>>>> origin/master
 =======
                 //  http://10.0.2.2:8080/practice/addNoise.php;
                 URL url = new URL(addNoise_url);
@@ -89,10 +99,14 @@ public class BackgroundTask extends AsyncTask<String, Void, String> {
             }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
         }
 
         else if(method.equals("recordLight"))
         {
+=======
+        } else if (method.equals("recordLight")) {
+>>>>>>> origin/master
 =======
         } else if (method.equals("recordLight")) {
 >>>>>>> origin/master
@@ -156,6 +170,7 @@ public class BackgroundTask extends AsyncTask<String, Void, String> {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+<<<<<<< HEAD
 <<<<<<< HEAD
         }
        else if(method.equals("recordAccelerometer"))
@@ -233,6 +248,73 @@ public class BackgroundTask extends AsyncTask<String, Void, String> {
             String time = params[1];
             String result = params[2];
             String location = params[3];
+=======
+        } else if (method.equals("recordAccelerometer")) {
+            String time = params[1];
+            String result = params[2];
+            String location = params[3];
+
+            try {
+                URL url = new URL(addAccelerometer_url);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoOutput(true);
+                httpURLConnection.setDoInput(true);
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+
+                String data = URLEncoder.encode("time", "UTF-8") + "=" + URLEncoder.encode(time, "UTF-8") + "&" +
+                        URLEncoder.encode("result", "UTF-8") + "=" + URLEncoder.encode(result, "UTF-8") + "&" +
+                        URLEncoder.encode("location", "UTF-8") + "=" + URLEncoder.encode(location, "UTF-8");
+
+                bufferedWriter.write(data);
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
+
+                InputStream IS = httpURLConnection.getInputStream();
+                IS.close();
+
+                httpURLConnection.disconnect();
+                return "Sensor Values Inserted";
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        } else if (method.equals("recordCamera")) {
+            String time = params[1];
+            String result = params[2];
+            String location = params[3];
+
+            try {
+                URL url = new URL(recordCamera_url);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoOutput(true);
+                httpURLConnection.setDoInput(true);
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+
+                String data = URLEncoder.encode("time", "UTF-8") + "=" + URLEncoder.encode(time, "UTF-8") + "&" +
+                        URLEncoder.encode("result", "UTF-8") + "=" + URLEncoder.encode(result, "UTF-8") + "&" +
+                        URLEncoder.encode("location", "UTF-8") + "=" + URLEncoder.encode(location, "UTF-8");
+
+                bufferedWriter.write(data);
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
+
+                InputStream IS = httpURLConnection.getInputStream();
+                IS.close();
+
+                httpURLConnection.disconnect();
+                return "Sensor Values Inserted";
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        } else if (method.equals("getTopRoom")) {
+>>>>>>> origin/master
 
             try {
                 URL url = new URL(addAccelerometer_url);
@@ -309,17 +391,23 @@ public class BackgroundTask extends AsyncTask<String, Void, String> {
                 inputStream.close();
                 httpURLConnection.disconnect();
 <<<<<<< HEAD
+<<<<<<< HEAD
             try {
                  jsonObj = new JSONObject(stringBuilder.toString());
             } catch(JSONException e){
                 e.printStackTrace();
             }
 =======
+=======
+>>>>>>> origin/master
                 try {
                     jsonObj = new JSONObject(stringBuilder.toString());
                 } catch (Exception e) {
 
                 }
+<<<<<<< HEAD
+>>>>>>> origin/master
+=======
 >>>>>>> origin/master
                 return stringBuilder.toString().trim();
 

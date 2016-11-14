@@ -53,11 +53,14 @@ public class MainActivity extends AppCompatActivity {
     private TextView textView;
     public static String thiefArray;
 
+<<<<<<< HEAD
     private final String USER_AGENT = "Mozilla/5.0";
     public static String ip;
     public static String macAddress;
     public static String pointLocation;
 
+=======
+>>>>>>> origin/master
     private Camera camera1;
     private Camera.Parameters parameters;
     boolean isFlashLightOn = false;
@@ -81,9 +84,14 @@ public class MainActivity extends AppCompatActivity {
             ((Button) findViewById(R.id.startBtn)).setText("Stop Service");
         }
 
+<<<<<<< HEAD
 
         new getPointAddress().execute();
         //Threads run every 20 second to determine if there is thief.
+=======
+        // addListenerOnSpinnerItemSelection();
+
+>>>>>>> origin/master
         new GetLocationTask().execute();
 
         new Thread(new Runnable() {
@@ -237,7 +245,17 @@ public class MainActivity extends AppCompatActivity {
         prefEditor.commit();
 
         Log.e("MAIN", sensorOn.toString());
+<<<<<<< HEAD
+=======
     }
+
+    /*
+    public void addListenerOnSpinnerItemSelection() {
+        spinner1 = (Spinner) findViewById(R.id.spinner1);
+        spinner1.setOnItemSelectedListener(new CustomOnItemSelectedListener());
+>>>>>>> origin/master
+    }
+    */
 
     public void showNotification() {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
@@ -303,6 +321,7 @@ public class MainActivity extends AppCompatActivity {
                     for (int i = 0; i < jArray.length(); i++) {
                         JSONObject json_data = jArray.getJSONObject(i);
 <<<<<<< HEAD
+<<<<<<< HEAD
                         //This is done to ensure that there are values in the location and is not false positive
                         if (!json_data.getString("location").contains("SIS")) {
                             thiefArray =  "There is a movement at " + json_data.getString("location")+"\n"
@@ -313,11 +332,16 @@ public class MainActivity extends AppCompatActivity {
                         }
 
 =======
+=======
+>>>>>>> origin/master
                         if (!json_data.getString("location").isEmpty()) {
                             thiefArray = "There is a movement at " + json_data.getString("location")
                                     + " at this time " + json_data.getString("time");
                             showNotification();
                         }
+<<<<<<< HEAD
+>>>>>>> origin/master
+=======
 >>>>>>> origin/master
                     }
                 } catch (JSONException e) {
@@ -370,6 +394,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+<<<<<<< HEAD
     //returns the location
     class getPointAddress extends AsyncTask<String, String, String> {
         String json_url;
@@ -575,4 +600,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+=======
+>>>>>>> origin/master
 }
