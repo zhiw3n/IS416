@@ -270,7 +270,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void showNotification() {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
-        builder.setSmallIcon(R.drawable.logo);
+        builder.setSmallIcon(R.mipmap.notification);
         builder.setContentTitle("Notification!");
         builder.setContentText("Potential Movement After Hours. Click for more.");
         Intent intent = new Intent(this, NotificationInfoActivity.class);

@@ -9,6 +9,7 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -18,20 +19,12 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 
-<<<<<<< HEAD
-public class BackgroundTask extends AsyncTask<String,Void,String> {
-  AlertDialog alertDialog;
-=======
 /**
  * Created by WenJie on 10/15/2016.
  */
 
 public class BackgroundTask extends AsyncTask<String, Void, String> {
     AlertDialog alertDialog;
-<<<<<<< HEAD
->>>>>>> origin/master
-=======
->>>>>>> origin/master
     Context ctx;
 
     BackgroundTask(Context ctx) {
@@ -39,7 +32,6 @@ public class BackgroundTask extends AsyncTask<String, Void, String> {
     }
 
     private String JSON_STRING;
-    public String answer;
     public static JSONObject jsonObj;
 
     @Override
@@ -58,22 +50,9 @@ public class BackgroundTask extends AsyncTask<String, Void, String> {
             String location = params[3];
 
             try {
-<<<<<<< HEAD
-<<<<<<< HEAD
-                URL url = new URL(addNoise_url);
-                HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
-=======
-                //  http://10.0.2.2:8080/practice/addNoise.php;
                 URL url = new URL(addNoise_url);
 
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
->>>>>>> origin/master
-=======
-                //  http://10.0.2.2:8080/practice/addNoise.php;
-                URL url = new URL(addNoise_url);
-
-                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
->>>>>>> origin/master
                 httpURLConnection.setRequestMethod("POST");
                 httpURLConnection.setDoOutput(true);
                 httpURLConnection.setDoInput(true);
@@ -98,18 +77,7 @@ public class BackgroundTask extends AsyncTask<String, Void, String> {
                 e.printStackTrace();
             }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-        }
-
-        else if(method.equals("recordLight"))
-        {
-=======
         } else if (method.equals("recordLight")) {
->>>>>>> origin/master
-=======
-        } else if (method.equals("recordLight")) {
->>>>>>> origin/master
             String time = params[1];
             String result = params[2];
             String location = params[3];
@@ -170,85 +138,6 @@ public class BackgroundTask extends AsyncTask<String, Void, String> {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-<<<<<<< HEAD
-<<<<<<< HEAD
-        }
-       else if(method.equals("recordAccelerometer"))
-       {
-           String time = params[1];
-           String result = params[2];
-           String location = params[3];
-
-           try {
-               URL url = new URL(addAccelerometer_url);
-               HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
-               httpURLConnection.setRequestMethod("POST");
-               httpURLConnection.setDoOutput(true);
-               httpURLConnection.setDoInput(true);
-               OutputStream outputStream = httpURLConnection.getOutputStream();
-               BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream,"UTF-8"));
-
-               String data = URLEncoder.encode("time","UTF-8")+"="+URLEncoder.encode(time,"UTF-8")+"&"+
-                       URLEncoder.encode("result","UTF-8")+"="+URLEncoder.encode(result,"UTF-8")+"&"+
-                       URLEncoder.encode("location","UTF-8")+"="+URLEncoder.encode(location,"UTF-8");
-
-               bufferedWriter.write(data);
-               bufferedWriter.flush();
-               bufferedWriter.close();
-               outputStream.close();
-
-               InputStream IS = httpURLConnection.getInputStream();
-               IS.close();
-
-               httpURLConnection.disconnect();
-               return "Sensor Values Inserted";
-           } catch (IOException e) {
-               e.printStackTrace();
-           }
-
-       }
-       else if(method.equals("recordCamera"))
-       {
-           String time = params[1];
-           String result = params[2];
-           String location = params[3];
-
-           try {
-               URL url = new URL(recordCamera_url);
-               HttpURLConnection httpURLConnection = (HttpURLConnection)url.openConnection();
-               httpURLConnection.setRequestMethod("POST");
-               httpURLConnection.setDoOutput(true);
-               httpURLConnection.setDoInput(true);
-               OutputStream outputStream = httpURLConnection.getOutputStream();
-               BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream,"UTF-8"));
-
-               String data = URLEncoder.encode("time","UTF-8")+"="+URLEncoder.encode(time,"UTF-8")+"&"+
-                       URLEncoder.encode("result","UTF-8")+"="+URLEncoder.encode(result,"UTF-8")+"&"+
-                       URLEncoder.encode("location","UTF-8")+"="+URLEncoder.encode(location,"UTF-8");
-
-               bufferedWriter.write(data);
-               bufferedWriter.flush();
-               bufferedWriter.close();
-               outputStream.close();
-
-               InputStream IS = httpURLConnection.getInputStream();
-               IS.close();
-
-               httpURLConnection.disconnect();
-               return "Sensor Values Inserted";
-           } catch (IOException e) {
-               e.printStackTrace();
-           }
-
-       }
-       else if(method.equals("getTopRoom"))
-        {
-=======
-        } else if (method.equals("recordAccelerometer")) {
-            String time = params[1];
-            String result = params[2];
-            String location = params[3];
-=======
         } else if (method.equals("recordAccelerometer")) {
             String time = params[1];
             String result = params[2];
@@ -277,7 +166,7 @@ public class BackgroundTask extends AsyncTask<String, Void, String> {
 
                 httpURLConnection.disconnect();
                 return "Sensor Values Inserted";
-            } catch (Exception e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
 
@@ -309,75 +198,12 @@ public class BackgroundTask extends AsyncTask<String, Void, String> {
 
                 httpURLConnection.disconnect();
                 return "Sensor Values Inserted";
-            } catch (Exception e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
+
 
         } else if (method.equals("getTopRoom")) {
->>>>>>> origin/master
-
-            try {
-                URL url = new URL(addAccelerometer_url);
-                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-                httpURLConnection.setRequestMethod("POST");
-                httpURLConnection.setDoOutput(true);
-                httpURLConnection.setDoInput(true);
-                OutputStream outputStream = httpURLConnection.getOutputStream();
-                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
-
-                String data = URLEncoder.encode("time", "UTF-8") + "=" + URLEncoder.encode(time, "UTF-8") + "&" +
-                        URLEncoder.encode("result", "UTF-8") + "=" + URLEncoder.encode(result, "UTF-8") + "&" +
-                        URLEncoder.encode("location", "UTF-8") + "=" + URLEncoder.encode(location, "UTF-8");
-
-                bufferedWriter.write(data);
-                bufferedWriter.flush();
-                bufferedWriter.close();
-                outputStream.close();
-
-                InputStream IS = httpURLConnection.getInputStream();
-                IS.close();
-
-                httpURLConnection.disconnect();
-                return "Sensor Values Inserted";
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-        } else if (method.equals("recordCamera")) {
-            String time = params[1];
-            String result = params[2];
-            String location = params[3];
-
-            try {
-                URL url = new URL(recordCamera_url);
-                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-                httpURLConnection.setRequestMethod("POST");
-                httpURLConnection.setDoOutput(true);
-                httpURLConnection.setDoInput(true);
-                OutputStream outputStream = httpURLConnection.getOutputStream();
-                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
-
-                String data = URLEncoder.encode("time", "UTF-8") + "=" + URLEncoder.encode(time, "UTF-8") + "&" +
-                        URLEncoder.encode("result", "UTF-8") + "=" + URLEncoder.encode(result, "UTF-8") + "&" +
-                        URLEncoder.encode("location", "UTF-8") + "=" + URLEncoder.encode(location, "UTF-8");
-
-                bufferedWriter.write(data);
-                bufferedWriter.flush();
-                bufferedWriter.close();
-                outputStream.close();
-
-                InputStream IS = httpURLConnection.getInputStream();
-                IS.close();
-
-                httpURLConnection.disconnect();
-                return "Sensor Values Inserted";
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-        } else if (method.equals("getTopRoom")) {
-
->>>>>>> origin/master
             try {
                 URL url = new URL("https://processing-angeliad.rhcloud.com/getTopRoom.php");
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
@@ -390,33 +216,13 @@ public class BackgroundTask extends AsyncTask<String, Void, String> {
                 bufferedReader.close();
                 inputStream.close();
                 httpURLConnection.disconnect();
-<<<<<<< HEAD
-<<<<<<< HEAD
-            try {
-                 jsonObj = new JSONObject(stringBuilder.toString());
-            } catch(JSONException e){
-                e.printStackTrace();
-            }
-=======
-=======
->>>>>>> origin/master
-                try {
-                    jsonObj = new JSONObject(stringBuilder.toString());
-                } catch (Exception e) {
 
-                }
-<<<<<<< HEAD
->>>>>>> origin/master
-=======
->>>>>>> origin/master
+                jsonObj = new JSONObject(stringBuilder.toString());
+
                 return stringBuilder.toString().trim();
-
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
         }
         return null;
     }
