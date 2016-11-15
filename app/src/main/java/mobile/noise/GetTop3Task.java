@@ -8,7 +8,11 @@ import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+<<<<<<< HEAD
+
+=======
 import java.util.*;
+>>>>>>> origin/master
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,11 +20,14 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+<<<<<<< HEAD
+=======
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.URLEncoder;
+>>>>>>> origin/master
 /**
  * Created by WenJiez on 26-10-16.
  */

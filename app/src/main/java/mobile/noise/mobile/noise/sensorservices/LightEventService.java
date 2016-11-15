@@ -7,6 +7,7 @@ import android.hardware.Sensor;
  */
 
 public class LightEventService extends SensorEventService {
+
     @Override
     public int getSensorType() {
         return Sensor.TYPE_LIGHT;

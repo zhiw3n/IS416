@@ -77,9 +77,20 @@ public class NoiseEventService extends Service {
                         double finalValue = Math.abs(20 * Math.log10(amplitutde));
                         String result = "" + amplitutde;
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+                        String location = CustomOnItemSelectedListener.globalSpinnerValue;
+                        String finalResult = "" + Double.toString(finalValue-10);
+=======
                         String location = GetLocationTask.location;
 
                         String finalResult = "" + Double.toString(finalValue - 10);
+>>>>>>> origin/master
+=======
+                        String location = GetLocationTask.location;
+
+                        String finalResult = "" + Double.toString(finalValue - 10);
+>>>>>>> origin/master
 
                         if (finalResult.contains("In")) {
                             finalResult = "70";
