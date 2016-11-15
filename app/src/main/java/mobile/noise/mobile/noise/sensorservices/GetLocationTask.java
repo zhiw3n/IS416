@@ -10,6 +10,7 @@ import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
@@ -27,10 +28,12 @@ public class GetLocationTask extends AsyncTask<String, String, String> {
     private final String USER_AGENT = "Mozilla/5.0";
     private static String ip;
     private static String macAddress;
-    public static String location;
+    public static String location = "No Room";
 
     @Override
     protected String doInBackground(String... params) {
+
+        System.setProperty("java.net.preferIPv4Stack" , "true");
 
         try {
             for (Enumeration<NetworkInterface> en = NetworkInterface
@@ -39,7 +42,7 @@ public class GetLocationTask extends AsyncTask<String, String, String> {
                 for (Enumeration<InetAddress> enumIpAddr = intf
                         .getInetAddresses(); enumIpAddr.hasMoreElements(); ) {
                     InetAddress inetAddress = enumIpAddr.nextElement();
-                    if (!inetAddress.isLoopbackAddress()) {
+                    if (!inetAddress.isLoopbackAddress() && inetAddress instanceof Inet4Address) {
                         String ipaddress = inetAddress.getHostAddress().toString();
                         Log.i("ip", ipaddress);
                         ip = ipaddress;
@@ -106,7 +109,8 @@ public class GetLocationTask extends AsyncTask<String, String, String> {
             con.setRequestProperty("User-Agent", USER_AGENT);
             con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
 
-            String urlParameters = "ip=10.124.131.91";
+            String urlParameters = "ip="+ip;
+            Log.i("IP Address",ip);
 
             // Send post request
             con.setDoOutput(true);
@@ -189,6 +193,8 @@ public class GetLocationTask extends AsyncTask<String, String, String> {
 
         if (result != null) {
             try {
+                Log.e("GetLocationTaks",result);
+
                 JSONObject j = new JSONObject(result);
                 Iterator<String> keys = j.keys();
 
@@ -205,6 +211,7 @@ public class GetLocationTask extends AsyncTask<String, String, String> {
                 location = j.getJSONArray(lastKey).getJSONObject(0).get("mapped_location").toString();
                 Log.i("GetLocation", "Locatio at last key is: " + location);
             } catch (Exception e) {
+                location = "No Room";
                 e.printStackTrace();
             }
 

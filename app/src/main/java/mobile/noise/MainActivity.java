@@ -47,24 +47,13 @@ import mobile.noise.mobile.noise.sensorservices.SensorType;
 
 public class MainActivity extends AppCompatActivity {
     private String JSON_STRING;
-    public String answer;
-    public boolean isRunning;
-    public static boolean ifOutput;
-    private TextView textView;
     public static String thiefArray;
-
-    private Camera camera1;
-    private Camera.Parameters parameters;
-    boolean isFlashLightOn = false;
-
-    private CameraCaptureSession mSession;
-    private CaptureRequest.Builder mBuilder;
-    private CameraDevice mCameraDevice;
-    private CameraManager mCameraManager;
+    private Thread thiefThread;
 
     private Spinner spinner1;
     private static ArrayList<Intent> serviceQueue = new ArrayList<Intent>();
     public static ArrayList<SensorType> sensorOn = new ArrayList<SensorType>();
+    public static boolean notificationOn = false;
     public static boolean running = false;
 
     @Override
@@ -79,20 +68,6 @@ public class MainActivity extends AppCompatActivity {
         // addListenerOnSpinnerItemSelection();
 
         new GetLocationTask().execute();
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (true) {
-                    try {
-                        Thread.sleep(20000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    new JSONTask().execute("http://processing-angeliad.rhcloud.com/getThief.php");
-                }
-            }
-        }).start();
 
         findViewById(R.id.startBtn).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,6 +93,40 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (notificationOn) {
+            thiefThread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    while (!Thread.interrupted()) {
+                        try {
+                            Thread.sleep(20000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        new JSONTask().execute("http://processing-angeliad.rhcloud.com/getThief.php");
+                    }
+                }
+            });
+            thiefThread.start();
+        } else {
+            try {
+                thiefThread.interrupt();
+            } catch(Exception e) {
+
+            }
+        }
+
+        try {
+            ((TextView) findViewById(R.id.currentLocationText)).setText("Current Room: " + GetLocationTask.location);
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public void goToSearch(View v) {
         startActivity(new Intent(MainActivity.this, FloorActivity.class));
     }
@@ -140,6 +149,13 @@ public class MainActivity extends AppCompatActivity {
 
     public void goToInfo(View v) {
         startActivity(new Intent(MainActivity.this, InfoActivity.class));
+    }
+
+    public void goToLight(View v) {
+        if (running) {
+            ((Button) findViewById(R.id.startBtn)).performClick();
+        }
+        startActivity(new Intent(MainActivity.this, LightActivity.class));
     }
 
     @Override
@@ -192,6 +208,9 @@ public class MainActivity extends AppCompatActivity {
         if (!pref.contains("PROXIMITY")) {
             prefEditor.putBoolean("PROXIMITY", true);
         }
+        if (!pref.contains("NOTIFICATION")) {
+            prefEditor.putBoolean("NOTIFICATION", false);
+        }
 
         prefEditor.commit();
 
@@ -214,6 +233,9 @@ public class MainActivity extends AppCompatActivity {
         if (pref.getBoolean("PROXIMITY", true)) {
             sensorOn.add(SensorType.PROXIMITY);
         }
+        if(pref.getBoolean("NOTIFICATION", true)) {
+            notificationOn = true;
+        }
 
         Log.e("MAIN", sensorOn.toString());
     }
@@ -227,10 +249,16 @@ public class MainActivity extends AppCompatActivity {
         prefEditor.putBoolean("MICROPHONE", sensorOn.contains(SensorType.MICROPHONE));
         prefEditor.putBoolean("LIGHT", sensorOn.contains(SensorType.LIGHT));
         prefEditor.putBoolean("PROXIMITY", sensorOn.contains(SensorType.PROXIMITY));
+        prefEditor.putBoolean("NOTIFICATION", notificationOn);
 
         prefEditor.commit();
 
         Log.e("MAIN", sensorOn.toString());
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
     }
 
     /*
@@ -242,7 +270,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void showNotification() {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
-        builder.setSmallIcon(R.mipmap.ic_launcher);
+        builder.setSmallIcon(R.drawable.logo);
         builder.setContentTitle("Notification!");
         builder.setContentText("Potential Movement After Hours. Click for more.");
         Intent intent = new Intent(this, NotificationInfoActivity.class);
@@ -296,7 +324,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            ;
+
             if (result != null) {
                 try {
                     JSONArray jArray = new JSONArray(result);
@@ -312,32 +340,7 @@ public class MainActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
-
-                //much more work needs to be done here
-                Thread.currentThread().setPriority(Thread.MAX_PRIORITY);
-                camera1 = Camera.open();
-                parameters = camera1.getParameters();
-
-                if (isFlashLightOn) {
-                    parameters.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
-                    camera1.setParameters(parameters);
-                    camera1.stopPreview();
-                    isFlashLightOn = false;
-                } else {
-                    parameters.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
-                    camera1.setParameters(parameters);
-                    camera1.startPreview();
-                    isFlashLightOn = true;
-                }
-                //to flash longer, comment out the bottom 3 lines
-                camera1.stopPreview();
-                camera1.release();
-                camera1 = null;
-
-
             }
         }
     }
-
 }

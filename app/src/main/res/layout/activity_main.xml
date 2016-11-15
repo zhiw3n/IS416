@@ -1,55 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
-    android:layout_alignParentTop="true"
-    android:layout_alignParentStart="false"
-    android:layout_alignParentLeft="true"
-    android:gravity="center_horizontal"
     android:layout_alignParentEnd="true"
+    android:layout_alignParentLeft="true"
     android:layout_alignParentRight="true"
+    android:layout_alignParentStart="false"
+    android:layout_alignParentTop="true"
+    android:gravity="center_horizontal"
+    android:orientation="horizontal"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="mobile.noise.MainActivity">
 
     <TableRow
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_marginTop="@dimen/list_paragraph_margin"
-        >
+        android:orientation="horizontal">
 
         <ImageView
+            android:id="@+id/imageView"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/logo_height"
-            android:layout_weight="1"
-            android:id="@+id/imageView"
-            android:src="@drawable/sensordyne_icon"
-            android:layout_span="4"
             android:layout_gravity="center"
-            android:contentDescription="Logo" />
+            android:layout_span="4"
+            android:layout_weight="1"
+            android:contentDescription="Logo"
+            android:src="@drawable/logo" />
     </TableRow>
 
     <TableRow
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="@dimen/list_paragraph_margin">
+        android:layout_marginTop="@dimen/list_paragraph_margin"
+        android:orientation="horizontal">
 
         <Button
+            android:id="@+id/startBtn"
             android:layout_width="match_parent"
             android:layout_height="70dp"
-            android:text="Start Service"
-            android:id="@+id/startBtn"
             android:layout_span="4"
             android:layout_weight="1"
-            />
+            android:text="Start Service" />
     </TableRow>
 
     <TableRow
@@ -68,58 +64,64 @@
             android:contentDescription="Search"
             android:background="@android:color/transparent"
             />
-
-        <View
-            android:layout_width="1px"
-            android:layout_height="match_parent"
-            android:background="@android:color/black"
-            />
         -->
 
         <ImageButton
             android:layout_width="0dp"
             android:layout_height="100dp"
+            android:layout_weight="1"
+            android:src="@drawable/torch"
+            android:background="@android:color/transparent"
+            android:contentDescription="Light mode"
+            android:onClick="goToLight"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true" />
+
+        <View
+            android:layout_width="1px"
+            android:layout_height="match_parent"
+            android:background="@android:color/black"
+            />
+
+        <ImageButton
             android:id="@+id/rankingBtn"
-            android:src="@drawable/trophy"
-            android:onClick="goToRanking"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
             android:layout_weight="1"
+            android:background="@android:color/transparent"
             android:contentDescription="Ranking"
-            android:background="@android:color/transparent"
-            />
+            android:onClick="goToRanking"
+            android:src="@drawable/trophy" />
 
         <View
             android:layout_width="1px"
             android:layout_height="match_parent"
-            android:background="@android:color/black"
-            />
+            android:background="@android:color/black" />
 
         <ImageButton
-            android:layout_width="0dp"
-            android:layout_height="100dp"
             android:id="@+id/settingsBtn"
-            android:src="@drawable/ic_action_name"
-            android:onClick="goToSettings"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
             android:layout_weight="1"
-            android:contentDescription="Settings"
             android:background="@android:color/transparent"
-            />
+            android:contentDescription="Settings"
+            android:onClick="goToSettings"
+            android:src="@drawable/ic_action_name" />
 
         <View
             android:layout_width="1px"
             android:layout_height="match_parent"
-            android:background="@android:color/black"
-            />
+            android:background="@android:color/black" />
 
         <ImageButton
+            android:id="@+id/infoBtn"
             android:layout_width="0dp"
             android:layout_height="100dp"
-            android:id="@+id/infoBtn"
-            android:src="@drawable/infoicon"
-            android:onClick="goToInfo"
             android:layout_weight="1"
-            android:contentDescription="Info"
             android:background="@android:color/transparent"
-            />
+            android:contentDescription="Info"
+            android:onClick="goToInfo"
+            android:src="@drawable/infoicon" />
     </TableRow>
 
     <!--
@@ -138,4 +140,18 @@
             android:layout_weight="1" />
     </TableRow>
     -->
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/list_paragraph_margin">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/currentLocationText"
+            style="@style/DetailTextViewStyle"
+            android:text="Current Room: Loading room ..."/>
+
+    </TableRow>
 </TableLayout>

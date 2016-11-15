@@ -104,6 +104,17 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
+        findViewById(R.id.notificationSwitch).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (((CompoundButton) v).isChecked()) {
+                    MainActivity.notificationOn = true;
+                } else {
+                    MainActivity.notificationOn = false;
+                }
+            }
+        });
+
         // Set switches to correct state.
         if (!MainActivity.sensorOn.contains(SensorType.ACCELEROMETER)) {
             ((CompoundButton) findViewById(R.id.accelerometerSwitch)).setChecked(false);
@@ -131,6 +142,10 @@ public class SettingsActivity extends AppCompatActivity {
             ((CompoundButton) findViewById(R.id.lightSwitch)).setEnabled(false);
             ((CompoundButton) findViewById(R.id.microphoneSwitch)).setEnabled(false);
             ((CompoundButton) findViewById(R.id.proximitySwitch)).setEnabled(false);
+        }
+
+        if (!MainActivity.notificationOn) {
+            ((CompoundButton) findViewById(R.id.notificationSwitch)).setChecked(false);
         }
     }
 }
