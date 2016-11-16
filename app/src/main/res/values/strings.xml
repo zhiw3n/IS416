@@ -1,6 +1,5 @@
 <resources>
-    <string name="app_name">Noise</string>
-    <string name="title_activity_maps">Map</string>
+    <string name="app_name">SensorDyne</string>
     <string name="country_prompt">Choose a Seimnar Room</string>
 
     <string-array name="country_arrays">
@@ -11,14 +10,14 @@
     </string-array>
 
     <string-array name="duration_array">
-        <item>1 sec</item>
+        <item>3 sec</item>
         <item>10 secs</item>
         <item>20 secs</item>
         <item>30 secs</item>
     </string-array>
 
     <string-array name="time_array">
-        <item>1 second</item>
+        <item>3 second</item>
         <item>5 seconds</item>
         <item>10 seconds</item>
         <item>30 seconds</item>
